@@ -11,6 +11,7 @@
     <title>{{ config('app.name') }}</title>
 
     <!-- Styles -->
+    {{ Html::style(asset('css/vendors/metisMenu.min.css')) }}
     {{ Html::style(asset('css/app.css')) }}
 
 
@@ -22,7 +23,7 @@
     </script>
   </head>
   <body>
-    <div id="app">
+    <div id="wrapper">
       <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
           <div class="navbar-header">

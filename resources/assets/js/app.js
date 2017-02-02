@@ -6,6 +6,7 @@
  */
 
 require('./bootstrap');
+require('../../../node_modules/metismenu/dist/metisMenu.min.js');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,5 +17,8 @@ require('./bootstrap');
 Vue.component('example', require('./components/Example.vue'));
 
 const app = new Vue({
-  el: '#app'
+  el: '#wrapper'
 });
+
+
+require('./scripts');
