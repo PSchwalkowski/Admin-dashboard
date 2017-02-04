@@ -170,19 +170,19 @@
 
     &.btn {
       &-primary {
-        color: #428bca;
+        color: $brand-primary;
       }
       &-success {
-        color: #5cb85c;
+        color: $brand-success;
       }
       &-info {
-        color: #5bc0de;
+        color: $brand-info;
       }
       &-warning {
-        color: #f0ad4e;
+        color: $brand-warning;
       }
       &-danger {
-        color: #d9534f;
+        color: $brand-danger;
       }
 
       &-primary,
@@ -278,61 +278,61 @@
 }
 .panel {
   &-green {
-    border-color: #5cb85c;
+    border-color: $brand-success;
 
     > {
       a {
-        color: #5cb85c;
+        color: $brand-success;
 
         &:hover {
-          color: #3d8b3d;
+          color: $brand-success-dark;
         }
       }
 
       .panel-heading {
-        border-color: #5cb85c;
+        border-color: $brand-success;
         color: white;
-        background-color: #5cb85c;
+        background-color: $brand-success;
       }
     }
   }
 
   &-red {
-    border-color: #d9534f;
+    border-color: $brand-danger;
 
     > {
       a {
-        color: #d9534f;
+        color: $brand-danger;
 
         &:hover {
-          color: #b52b27;
+          color: $brand-danger-dark;
         }
       }
 
       .panel-heading {
-        border-color: #d9534f;
+        border-color: $brand-danger;
         color: white;
-        background-color: #d9534f;
+        background-color: $brand-danger;
       }
     }
   }
 
   &-yellow {
-    border-color: #f0ad4e;
+    border-color: $brand-warning;
 
     > {
       a {
-        color: #f0ad4e;
+        color: $brand-warning;
 
         &:hover {
-          color: #df8a13;
+          color: $brand-warning-dark;
         }
       }
 
       .panel-heading {
-        border-color: #f0ad4e;
+        border-color: $brand-warning;
         color: white;
-        background-color: #f0ad4e;
+        background-color: $brand-warning;
       }
     }
   }
@@ -376,8 +376,8 @@ table.dataTable thead .sorting {
   [class^="col-"] {
     padding-top: 10px;
     padding-bottom: 10px;
-    border: 1px solid #ddd;
-    background-color: #eee !important;
+    border: 1px solid #dddddd;
+    background-color: #eeeeee !important;
   }
 }
 
@@ -411,7 +411,6 @@ table.dataTable thead .sorting {
       padding: 20px;
       border: 1px solid #d4d4d4;
       border-radius: 2px;
-      -webkit-box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
       box-shadow: 0 1px 6px rgba(0, 0, 0, 0.175);
 
       &:before {
@@ -476,27 +475,27 @@ table.dataTable thead .sorting {
 
   &-badge {
     &.primary {
-      background-color: #2e6da4;
+      background-color: $brand-primary;
     }
     &.success {
-      background-color: #3f903f;
+      background-color: $brand-success;
     }
     &.warning {
-      background-color: #f0ad4e;
+      background-color: $brand-warning;
     }
     &.danger {
-      background-color: #d9534f;
+      background-color: $brand-danger;
     }
     &.info {
-      background-color: #5bc0de;
+      background-color: $brand-info;
     }
   }
 
   &-title {
     margin-top: 0;
     color: inherit;
-  }
 
+  }
   &-body {
     > p,
     > ul {
@@ -525,7 +524,7 @@ table.dataTable thead .sorting {
           right: auto;
           border-left-width: 0;
         }
-        
+
         &:before {
           left: -15px;
           border-right-width: 15px;
