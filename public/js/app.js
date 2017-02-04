@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 40);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11190,7 +11190,7 @@ module.exports = g;
  */
 
 __webpack_require__(31);
-__webpack_require__(34);
+__webpack_require__(35);
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -11198,13 +11198,13 @@ __webpack_require__(34);
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component('example', __webpack_require__(35));
+Vue.component('example', __webpack_require__(36));
 
 var app = new Vue({
   el: '#wrapper'
 });
 
-__webpack_require__(54);
+__webpack_require__(32);
 
 /***/ }),
 /* 11 */
@@ -12087,7 +12087,7 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {
-window._ = __webpack_require__(33);
+window._ = __webpack_require__(34);
 
 /**
  * We'll load jQuery and the Bootstrap jQuery plugin which provides support
@@ -12097,7 +12097,7 @@ window._ = __webpack_require__(33);
 
 window.$ = __webpack_provided_window_dot_jQuery = __webpack_require__(1);
 
-__webpack_require__(32);
+__webpack_require__(33);
 
 /**
  * Vue is a modern JavaScript library for building interactive web interfaces
@@ -12105,7 +12105,7 @@ __webpack_require__(32);
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = __webpack_require__(38);
+window.Vue = __webpack_require__(39);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
@@ -12136,6 +12136,59 @@ window.axios.defaults.headers.common = {
 
 /***/ }),
 /* 32 */
+/***/ (function(module, exports, __webpack_require__) {
+
+/* WEBPACK VAR INJECTION */(function($) {/*!
+ * Start Bootstrap - SB Admin 2 v3.3.7+1 (http://startbootstrap.com/template-overviews/sb-admin-2)
+ * Copyright 2013-2016 Start Bootstrap
+ * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
+ */
+$(function () {
+  $('#side-menu').metisMenu();
+});
+
+//Loads the correct sidebar on window load,
+//collapses the sidebar on window resize.
+// Sets the min-height of #page-wrapper to window size
+$(function () {
+  $(window).bind("load resize", function () {
+    var topOffset = 50;
+    var width = this.window.innerWidth > 0 ? this.window.innerWidth : this.screen.width;
+    if (width < 768) {
+      $('div.navbar-collapse').addClass('collapse');
+      topOffset = 100; // 2-row-menu
+    } else {
+      $('div.navbar-collapse').removeClass('collapse');
+    }
+
+    var height = (this.window.innerHeight > 0 ? this.window.innerHeight : this.screen.height) - 1;
+    height = height - topOffset;
+    if (height < 1) height = 1;
+    if (height > topOffset) {
+      $("#page-wrapper").css("min-height", height + "px");
+    }
+  });
+
+  var url = window.location;
+  // var element = $('ul.nav a').filter(function() {
+  //   return this.href == url;
+  // }).addClass('active').parent().parent().addClass('in').parent();
+  var element = $('ul.nav a').filter(function () {
+    return this.href == url;
+  }).addClass('active').parent();
+
+  while (true) {
+    if (element.is('li')) {
+      element = element.parent().addClass('in').parent();
+    } else {
+      break;
+    }
+  }
+});
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ }),
+/* 33 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {/*!
@@ -14519,7 +14572,7 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 33 */
+/* 34 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(global, module) {var __WEBPACK_AMD_DEFINE_RESULT__;/**
@@ -31608,10 +31661,10 @@ if (typeof jQuery === 'undefined') {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(39)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(40)(module)))
 
 /***/ }),
-/* 34 */
+/* 35 */
 /***/ (function(module, exports, __webpack_require__) {
 
 /* WEBPACK VAR INJECTION */(function(jQuery) {var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/*
@@ -31631,14 +31684,14 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 35 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(36)(
+var Component = __webpack_require__(37)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(37),
+  __webpack_require__(38),
   /* scopeId */
   null,
   /* cssModules */
@@ -31665,7 +31718,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 36 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = function normalizeComponent (
@@ -31718,7 +31771,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 37 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -31747,7 +31800,7 @@ if (false) {
 }
 
 /***/ }),
-/* 38 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40323,7 +40376,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
 
 /***/ }),
-/* 39 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -40351,78 +40404,12 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 40 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);
 module.exports = __webpack_require__(11);
 
-
-/***/ }),
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */
-/***/ (function(module, exports, __webpack_require__) {
-
-/* WEBPACK VAR INJECTION */(function($) {/*!
- * Start Bootstrap - SB Admin 2 v3.3.7+1 (http://startbootstrap.com/template-overviews/sb-admin-2)
- * Copyright 2013-2016 Start Bootstrap
- * Licensed under MIT (https://github.com/BlackrockDigital/startbootstrap/blob/gh-pages/LICENSE)
- */
-$(function () {
-  $('#side-menu').metisMenu();
-});
-
-//Loads the correct sidebar on window load,
-//collapses the sidebar on window resize.
-// Sets the min-height of #page-wrapper to window size
-$(function () {
-  $(window).bind("load resize", function () {
-    var topOffset = 50;
-    var width = this.window.innerWidth > 0 ? this.window.innerWidth : this.screen.width;
-    if (width < 768) {
-      $('div.navbar-collapse').addClass('collapse');
-      topOffset = 100; // 2-row-menu
-    } else {
-      $('div.navbar-collapse').removeClass('collapse');
-    }
-
-    var height = (this.window.innerHeight > 0 ? this.window.innerHeight : this.screen.height) - 1;
-    height = height - topOffset;
-    if (height < 1) height = 1;
-    if (height > topOffset) {
-      $("#page-wrapper").css("min-height", height + "px");
-    }
-  });
-
-  var url = window.location;
-  // var element = $('ul.nav a').filter(function() {
-  //   return this.href == url;
-  // }).addClass('active').parent().parent().addClass('in').parent();
-  var element = $('ul.nav a').filter(function () {
-    return this.href == url;
-  }).addClass('active').parent();
-
-  while (true) {
-    if (element.is('li')) {
-      element = element.parent().addClass('in').parent();
-    } else {
-      break;
-    }
-  }
-});
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ })
 /******/ ]);
