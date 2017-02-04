@@ -12,7 +12,7 @@ return [
     | any other location as required by the application or its packages.
     */
 
-    'name' => 'SB Admin 2',
+    'name' => 'Dashboard',
 
     /*
     |--------------------------------------------------------------------------
