@@ -1,17 +1,33 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
-    <div class="row">
-        <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Dashboard</div>
-
-                <div class="panel-body">
-                    You are logged in!
-                </div>
-            </div>
-        </div>
+  <div class="row">
+    <div class="col-xs-12">
+      <h1 class="page-header">Dashboard</h1>
     </div>
-</div>
+  </div>
+
+  <div class="row">
+    <div class="col-xs-12">
+      <div class="panel panel-primary">
+        <div class="panel-heading">
+          <div class="row">
+            <div class="col-xs-3">
+              <i class="fa fa-comments fa-5x"></i>
+            </div>
+            <div class="col-xs-9 text-right">
+              <div class="huge">26</div>
+              <div>New Comments!</div>
+            </div>
+          </div>
+        </div>
+        <a href="#">
+          <div class="panel-footer clearfix">
+            <span class="pull-left">View Details</span>
+            <span class="pull-right"><i class="fa fa-arrow-circle-right"></i></span>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
 @endsection

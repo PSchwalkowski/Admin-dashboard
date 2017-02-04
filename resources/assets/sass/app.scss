@@ -10,3 +10,7 @@
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome";
 @import "sb-admin-2";
+
+.navbar-static-top {
+  margin-bottom: 0;
+}

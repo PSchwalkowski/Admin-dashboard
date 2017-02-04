@@ -1,6 +1,42 @@
-@extends('layouts.app')
+@extends('layouts.auth')
 
 @section('content')
+
+  <div class="col-md-4 col-md-offset-4">
+    <div class="login-panel panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Please Sign In</h3>
+      </div>
+      <div class="panel-body">
+        {{ Form::open([
+          'url' => url('/login'),
+          'role' => 'form'
+        ]) }}
+
+          <fieldset>
+            <div class="form-group">
+              {{ Form::email('email', old('email'), [
+                'class' => 'form-control',
+                'placeholder' => 'E-mail'
+              ]) }}
+            </div>
+            <div class="form-group">
+              {{ Form::password('password', [
+                'class' => 'form-control',
+                'placeholder' => 'Password'
+              ]) }}
+            </div>
+
+            {{ Form::submit('Login', ['class' => 'btn btn-lg btn-success btn-block']) }}
+          </fieldset>
+
+        {{ Form::close() }}
+      </div>
+    </div>
+  </div>
+
+@endsection
+@section('content2')
 <div class="container">
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
