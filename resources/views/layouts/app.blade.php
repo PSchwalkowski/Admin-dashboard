@@ -24,58 +24,106 @@
   </head>
   <body>
     <div id="wrapper">
-      <nav class="navbar navbar-default navbar-static-top">
-        <div class="container">
-          <div class="navbar-header">
+      <nav class="navbar navbar-default navbar-static-top" role="navigation">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="index.html">{{ config('app.name') }}</a>
+        </div><!-- /.navbar-header -->
 
-            <!-- Collapsed Hamburger -->
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-              <span class="sr-only">Toggle Navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
-
-            <!-- Branding Image -->
-            <a class="navbar-brand" href="{{ url('/') }}">
-              {{ config('app.name', 'Laravel') }}
-            </a>
-          </div>
-
-          <div class="collapse navbar-collapse" id="app-navbar-collapse">
-            <!-- Left Side Of Navbar -->
-            <ul class="nav navbar-nav">
-              &nbsp;
-            </ul>
-
-            <!-- Right Side Of Navbar -->
-            <ul class="nav navbar-nav navbar-right">
-              <!-- Authentication Links -->
-              @if (Auth::guest())
-                <li><a href="{{ url('/login') }}">Login</a></li>
-                <li><a href="{{ url('/register') }}">Register</a></li>
-              @else
-                <li class="dropdown">
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
-                    {{ Auth::user()->name }} <span class="caret"></span>
+        @if (!Auth::guest())
+          <ul class="nav navbar-top-links navbar-right">
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-messages">
+                <li><a href="#"><div>
+                  <strong>John Smith</strong>
+                  <span class="pull-right text-muted"><em>Yesterday</em></span>
+                  <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque eleifend...</p>
+                </div></a></li>
+                <li class="divider"></li>
+                <li><a class="text-center" href="#">
+                  <strong>Read all messages</strong>
+                  <i class="fa fa-angle-right"></i>
+                </a></li>
+              </ul><!-- /.dropdown-messages -->
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-tasks fa-fw"></i> <i class="fa fa-caret-down"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-tasks">
+                <li><a href="#"><div>
+                  <p>
+                    <strong>Task 1</strong>
+                    <span class="pull-right text-muted">40% Complete</span>
+                  </p>
+                  <div class="progress progress-striped active">
+                    <div class="progress-bar progress-bar-success" role="progressbar" aria-valuenow="40" aria-valuemin="0" aria-valuemax="100" style="width: 40%">
+                      <span class="sr-only">40% Complete (success)</span>
+                    </div>
+                  </div>
+                </div></a></li>
+                <li class="divider"></li>
+                <li><a class="text-center" href="#">
+                  <strong>See all tasks</strong>
+                  <i class="fa fa-angle-right"></i>
+                </a></li>
+              </ul><!-- /.dropdown-tasks -->
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-bell fa-fw"></i> <i class="fa fa-caret-down"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-alerts">
+                <li><a href="#"><div>
+                  <i class="fa fa-comment fa-fw"></i> New Comment
+                  <span class="pull-right text-muted small">4 minutes ago</span>
+                </div></a></li>
+                <li class="divider"></li>
+                <li><a href="#"><div>
+                  <i class="fa fa-twitter fa-fw"></i> 3 New Followers
+                  <span class="pull-right text-muted small">12 minutes ago</span>
+                </div></a></li>
+                <li class="divider"></li>
+                <li><a class="text-center" href="#">
+                  <strong>See all alerts</strong>
+                  <i class="fa fa-angle-right"></i>
+                </a></li>
+              </ul><!-- /.dropdown-alerts -->
+            </li>
+            <li class="dropdown">
+              <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+              </a>
+              <ul class="dropdown-menu dropdown-user">
+                <li><a href="#">
+                  <i class="fa fa-user fa-fw"></i> User Profile
+                </a></li>
+                <li><a href="#">
+                  <i class="fa fa-cog fa-fw"></i> Settings
+                </a></li>
+                <li class="divider"></li>
+                <li>
+                  <a href="{{ url('/logout') }}"
+                    onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fa fa-sign-out fa-fw"></i> Logout
                   </a>
 
-                  <ul class="dropdown-menu" role="menu">
-                    <li>
-                      <a href="{{ url('/logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                        Logout
-                      </a>
-
-                      <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
-                        {{ csrf_field() }}
-                      </form>
-                    </li>
-                  </ul>
+                  <form id="logout-form" action="{{ url('/logout') }}" method="POST" style="display: none;">
+                    {{ csrf_field() }}
+                  </form>
                 </li>
-              @endif
-            </ul>
-          </div>
-        </div>
+              </ul><!-- /.dropdown-user -->
+            </li>
+          </ul>
+        @endif
       </nav>
 
       @yield('content')
