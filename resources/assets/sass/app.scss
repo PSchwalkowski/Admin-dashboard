@@ -14,3 +14,11 @@
 .navbar-static-top {
   margin-bottom: 0;
 }
+
+.nav li a {
+  transition: ease-in-out background-color .3s, ease-in-out border-color .3s;
+
+  &:hover {
+    transition: ease-in-out background-color .3s, ease-in-out border-color .3s;
+  }
+}

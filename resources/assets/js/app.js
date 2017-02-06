@@ -17,7 +17,7 @@ require('../../../node_modules/metismenu/dist/metisMenu.min.js');
 Vue.component('example', require('./components/Example.vue'));
 
 const app = new Vue({
-  el: '#wrapper'
+  el: 'body > div'
 });
 
 

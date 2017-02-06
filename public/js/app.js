@@ -11201,7 +11201,7 @@ __webpack_require__(35);
 Vue.component('example', __webpack_require__(36));
 
 var app = new Vue({
-  el: '#wrapper'
+  el: 'body > div'
 });
 
 __webpack_require__(32);

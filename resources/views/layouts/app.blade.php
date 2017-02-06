@@ -142,21 +142,20 @@
                 <li><a href="/">
                   <i class="fa fa-dashboard fa-fw"></i> Dashboard
                 </a></li>
-                <li>
-                  <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts
-                    <span class="fa arrow"></span>
-                  </a>
-                  <ul class="nav nav-second-level">
-                    <li><a href="#">Flot Charts</a></li>
-                    <li><a href="#">Morris.js Charts</a></li>
-                  </ul>
-                </li>
-                <li><a href="#">
-                  <i class="fa fa-table fa-fw"></i> Tables
+                <li><a href="{{ url('users') }}">
+                  <i class="fa fa-users fa-fw"></i> Users
                 </a></li>
-                <li><a href="#">
-                  <i class="fa fa-edit fa-fw"></i> Forms
-                </a></li>
+                {{--
+                  <li>
+                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts
+                      <span class="fa arrow"></span>
+                    </a>
+                    <ul class="nav nav-second-level">
+                      <li><a href="#">Flot Charts</a></li>
+                      <li><a href="#">Morris.js Charts</a></li>
+                    </ul>
+                  </li>
+                --}}
               </ul>
             </div>
           </div>
