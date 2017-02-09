@@ -23,7 +23,7 @@
     </script>
   </head>
   <body>
-    <div id="wrapper">
+    <div id="wrapper" class="app">
       <nav class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -142,7 +142,7 @@
                 <li><a href="/">
                   <i class="fa fa-dashboard fa-fw"></i> Dashboard
                 </a></li>
-                <li><a href="{{ url('users') }}">
+                <li><a href="{{ url('users')}}">
                   <i class="fa fa-users fa-fw"></i> Users
                 </a></li>
                 {{--

@@ -35,10 +35,10 @@
             </fieldset>
           </div>
           <div class="panel-footer clearfix">
-            <button type="submit" name="submit" class="btn btn-default btn-circle">
+            <button type="submit" name="submit" class="btn btn-default btn-hover-success btn-circle">
               <i class="fa fa-check" aria-hidden="true"></i>
             </button>
-            <button type="reset" name="submit" class="btn btn-default btn-circle">
+            <button type="reset" name="submit" class="btn btn-default btn-hover-warning btn-circle">
               <i class="fa fa-times" aria-hidden="true"></i>
             </button>
             <a href="{{ url('/users') }}" class="btn btn-default btn-circle pull-right">
@@ -50,4 +50,6 @@
 
     </div>
   </div>
+
+  
 @endsection

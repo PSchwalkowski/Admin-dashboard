@@ -22,3 +22,38 @@
     transition: ease-in-out background-color .3s, ease-in-out border-color .3s;
   }
 }
+
+.btn {
+  &:active,
+  &:focus {
+    outline: none !important;
+  }
+
+  &-hover {
+    &-primary:hover {
+      color: white;
+      background-color: $brand-primary;
+      border-color: $brand-primary-dark;
+    }
+    &-danger:hover {
+      color: white;
+      background-color: $brand-danger;
+      border-color: $brand-danger-dark;
+    }
+    &-success:hover {
+      color: white;
+      background-color: $brand-success;
+      border-color: $brand-success-dark;
+    }
+    &-info:hover {
+      color: white;
+      background-color: $brand-info;
+      border-color: $brand-info-dark;
+    }
+    &-warning:hover {
+      color: white;
+      background-color: $brand-warning;
+      border-color: $brand-warning-dark;
+    }
+  }
+}

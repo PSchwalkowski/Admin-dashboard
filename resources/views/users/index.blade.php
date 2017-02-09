@@ -3,7 +3,8 @@
 @section('content')
   <div class="row">
     <div class="col-xs-12">
-      <h1 class="page-header">Users <a href="{{ url('/users/create') }}" class="btn btn-default btn-circle pull-right">
+      <h1 class="page-header">Users <a href="{{ url('/users/create') }}"
+        class="btn btn-default btn-hover-success btn-circle pull-right">
         <i class="fa fa-plus" aria-hidden="true"></i>
       </a></h1>
     </div>
@@ -11,7 +12,59 @@
 
   <div class="row">
     <div class="col-xs-12">
+      <div class="panel panel-default">
+        <div class="panel-heading"></div>
+        <div class="panel-body">
+          <table class="table table-striped">
+            <thead>
+              <th>ID</th>
+              <th>Name</th>
+              <th>E-mail</th>
+              <th width="80px"></th>
+            </thead>
+            <tbody>
+              @foreach ($users as $user)
+                <tr>
+                  <td>{{ $user->id }}</td>
+                  <td>{{ $user->name }}</td>
+                  <td>{{ $user->email }}</td>
+                  <td>
+                    <a href="#" class="btn btn-default btn-hover-primary btn-circle">
+                      <i class="fa fa-pencil" aria-hidden="true"></i>
+                    </a>
+                    <button type="button" name="delete" value="{{ $user->id }}"
+                      class="btn btn-default btn-hover-danger btn-circle"
+                      data-toggle="modal" data-target="#users-delete">
+                      <i class="fa fa-trash-o" aria-hidden="true"></i>
+                    </button>
+                  </td>
+                </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
+        <div class="panel-footer"></div>
+      </div>
+    </div>
+  </div>
 
+  <!-- Modal -->
+  <div class="modal fade" id="users-delete" tabindex="-1" role="dialog">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <h4 class="modal-title">Confimation</h4>
+        </div>
+        <div class="modal-body">
+          <p class="text-danger">Are you really want to delete this user?</p>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
+          <button type="button" class="btn btn-default btn-hover-danger"
+            data-dismiss="modal">Yes</button>
+        </div>
+      </div>
     </div>
   </div>
 @endsection
