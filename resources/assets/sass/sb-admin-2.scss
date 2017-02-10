@@ -163,10 +163,10 @@
 
 // 4. Buttons
 .btn {
-  transition: ease-in-out background-color .3s, ease-in-out border-color .3s;
+  transition: ease-in-out background-color .3s, ease-in-out border-color .3s, ease-in-out .3s color;
 
   &:hover {
-    transition: ease-in-out background-color .3s, ease-in-out border-color .3s;
+    transition: ease-in-out background-color .3s, ease-in-out border-color .3s, ease-in-out .3s color;
   }
 
   &-outline {

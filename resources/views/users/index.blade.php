@@ -23,23 +23,23 @@
               <th width="80px"></th>
             </thead>
             <tbody>
-              @foreach ($users as $user)
-                <tr>
-                  <td>{{ $user->id }}</td>
-                  <td>{{ $user->name }}</td>
-                  <td>{{ $user->email }}</td>
-                  <td>
-                    <a href="#" class="btn btn-default btn-hover-primary btn-circle">
-                      <i class="fa fa-pencil" aria-hidden="true"></i>
-                    </a>
-                    <button type="button" name="delete" value="{{ $user->id }}"
-                      class="btn btn-default btn-hover-danger btn-circle"
-                      data-toggle="modal" data-target="#users-delete">
-                      <i class="fa fa-trash-o" aria-hidden="true"></i>
-                    </button>
-                  </td>
-                </tr>
-              @endforeach
+              <tr v-for="user in users">
+                <td>@{{ user.id }}</td>
+                <td>@{{ user.name }}</td>
+                <td>@{{ user.email }}</td>
+                <td>
+                  <button type="button" name="delete" v-bind:value="user.id"
+                    class="btn btn-default btn-hover-primary btn-circle"
+                    data-toggle="modal" data-target="#users-edit">
+                    <i class="fa fa-pencil" aria-hidden="true"></i>
+                  </button>
+                  <button type="button" name="delete" v-bind:value="user.id"
+                    class="btn btn-default btn-hover-danger btn-circle"
+                    data-toggle="modal" data-target="#users-delete">
+                    <i class="fa fa-trash-o" aria-hidden="true"></i>
+                  </button>
+                </td>
+              </tr>
             </tbody>
           </table>
         </div>
