@@ -15,7 +15,7 @@
       <div class="panel panel-default">
         <div class="panel-heading"></div>
         <div class="panel-body">
-          <table class="table table-striped">
+          <table class="table table-striped" id="users-table">
             <thead>
               <th>ID</th>
               <th>Name</th>
@@ -60,9 +60,12 @@
           <p class="text-danger">Are you really want to delete this user?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-default" data-dismiss="modal">No</button>
-          <button type="button" class="btn btn-default btn-hover-danger"
-            data-dismiss="modal">Yes</button>
+          <button type="button" data-dismiss="modal" v-on:click="deleteUser"
+            class="btn btn-default btn-hover-danger btn-circle">
+            <i class="fa fa-check" aria-hidden="true"></i></button>
+          <button type="button" data-dismiss="modal"
+            class="btn btn-default btn-hover-info btn-circle">
+            <i class="fa fa-times" aria-hidden="true"></i></button>
         </div>
       </div>
     </div>

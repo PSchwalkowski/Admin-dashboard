@@ -23,11 +23,15 @@
   }
 }
 
-.btn {
+.btn,
+button {
   &:active,
   &:focus {
     outline: none !important;
   }
+}
+
+.btn {
 
   &-hover {
     &-primary:hover {

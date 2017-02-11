@@ -11182,7 +11182,7 @@ module.exports = g;
 /* 10 */
 /***/ (function(module, exports, __webpack_require__) {
 
-
+/* WEBPACK VAR INJECTION */(function($) {
 __webpack_require__(30);
 __webpack_require__(34);
 
@@ -11192,27 +11192,26 @@ var app = new Vue({
   data: {
     users: []
   },
-  ready: function ready() {
-    // Get users from API
-    this.users = this.getUsers();
-  },
   methods: {
     getUsers: function getUsers() {
-      return [{
-        id: 1,
-        name: 'test'
-      }, {
-        id: 2,
-        name: 'test'
-      }, {
-        id: 3,
-        name: 'test'
-      }];
+      var _this = this;
+
+      axios.get('/api/users').then(function (res) {
+        _this.users = res.data;
+      });
+    },
+    deleteUser: function deleteUser(event) {
+      console.log(event);
     }
   }
 });
 
+$(function () {
+  if ($('#users-table').length) app.getUsers();
+});
+
 __webpack_require__(31);
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 11 */
@@ -12085,6 +12084,7 @@ __webpack_require__(32);
  */
 
 window.Vue = __webpack_require__(35);
+// Vue.use(require('vue-resource'));
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

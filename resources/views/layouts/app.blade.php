@@ -24,6 +24,7 @@
   </head>
   <body>
     <div id="wrapper" class="app">
+
       <nav class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="navbar-header">
           <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">

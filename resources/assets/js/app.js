@@ -8,29 +8,20 @@ const app = new Vue({
   data: {
     users: []
   },
-  ready: function() {
-    // Get users from API
-    this.users = this.getUsers();
-  },
   methods: {
-    getUsers: () => {
-      return [
-        {
-          id: 1,
-          name: 'test'
-        },
-        {
-          id: 2,
-          name: 'test'
-        },
-        {
-          id: 3,
-          name: 'test'
-        }
-      ];
+    getUsers: function() {
+      axios.get('/api/users').then(res => {
+        this.users = res.data;
+      });
+    },
+    deleteUser: function(event) {
+      console.log(event);
     }
   }
 });
 
+$(function() {
+  if ($('#users-table').length) app.getUsers();
+});
 
 require('./scripts');
