@@ -8,6 +8,9 @@ const app = new Vue({
   data: {
     users: []
   },
+  created: function() {
+    if ($('#users-table').length) this.getUsers();
+  },
   methods: {
     getTargetButtonFromEvent: (event) => {
       var button = $(event.target).get(0);
@@ -43,12 +46,12 @@ const app = new Vue({
       .catch(error => {
         console.error(error);
       });
+    },
+    createUser: function(event) {
+      var form = $(this.getTargetButtonFromEvent(event)).parents('form');
+
     }
   }
-});
-
-$(function() {
-  if ($('#users-table').length) app.getUsers();
 });
 
 require('./scripts');

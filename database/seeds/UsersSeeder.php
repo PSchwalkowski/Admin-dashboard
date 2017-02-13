@@ -16,6 +16,6 @@ class UsersSeeder extends Seeder {
      'password' => bcrypt('password'),
    ]);
 
-    factory(App\Models\User::class, 9)->create();
+    factory(App\Models\User::class, 19)->create();
   }
 }

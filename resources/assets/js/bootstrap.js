@@ -17,7 +17,11 @@ require('bootstrap-sass');
  * and simple, leaving you to focus on building your next great project.
  */
 
-window.Vue = require('vue');
+import Vue from 'vue';
+import VeeValidate from 'vee-validate';
+
+window.Vue = Vue;
+window.Vue.use(VeeValidate);
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests
