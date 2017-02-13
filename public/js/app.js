@@ -11193,6 +11193,13 @@ var app = new Vue({
     users: []
   },
   methods: {
+    getTargetButtonFromEvent: function getTargetButtonFromEvent(event) {
+      var button = $(event.target).get(0);
+
+      if (button.tagName === 'I') button = $(button).parent().get(0);
+
+      return button;
+    },
     getUsers: function getUsers() {
       var _this = this;
 
@@ -11200,8 +11207,25 @@ var app = new Vue({
         _this.users = res.data;
       });
     },
+    showDeleteUserModal: function showDeleteUserModal(event) {
+      var id = $(this.getTargetButtonFromEvent(event)).val();
+      $('#users-delete button[name="deleteUser"]').val(id);
+    },
     deleteUser: function deleteUser(event) {
-      console.log(event);
+      var id = parseInt($(this.getTargetButtonFromEvent(event)).val());
+      var self = this;
+
+      axios.delete('/api/users/', {
+        data: { id: id }
+      }).then(function (res) {
+        if (res.status === 204) {
+          self.users = self.users.filter(function (user, index) {
+            if (user.id !== id) return user;
+          });
+        }
+      }).catch(function (error) {
+        console.error(error);
+      });
     }
   }
 });
@@ -11211,6 +11235,8 @@ $(function () {
 });
 
 __webpack_require__(31);
+
+// TODO: Notifications!
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
@@ -12084,7 +12110,6 @@ __webpack_require__(32);
  */
 
 window.Vue = __webpack_require__(35);
-// Vue.use(require('vue-resource'));
 
 /**
  * We'll load the axios HTTP library which allows us to easily issue requests

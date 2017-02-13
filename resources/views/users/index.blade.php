@@ -28,12 +28,13 @@
                 <td>@{{ user.name }}</td>
                 <td>@{{ user.email }}</td>
                 <td>
-                  <button type="button" name="delete" v-bind:value="user.id"
+                  <button type="button" name="user-edit" v-bind:value="user.id"
                     class="btn btn-default btn-hover-primary btn-circle"
                     data-toggle="modal" data-target="#users-edit">
                     <i class="fa fa-pencil" aria-hidden="true"></i>
                   </button>
-                  <button type="button" name="delete" v-bind:value="user.id"
+                  <button type="button" name="user-delete" v-bind:value="user.id"
+                    v-on:click="showDeleteUserModal"
                     class="btn btn-default btn-hover-danger btn-circle"
                     data-toggle="modal" data-target="#users-delete">
                     <i class="fa fa-trash-o" aria-hidden="true"></i>
@@ -53,14 +54,16 @@
     <div class="modal-dialog" role="document">
       <div class="modal-content">
         <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+          <button type="button" class="close" data-dismiss="modal"
+            aria-label="Close"><span aria-hidden="true">&times;</span></button>
           <h4 class="modal-title">Confimation</h4>
         </div>
         <div class="modal-body">
           <p class="text-danger">Are you really want to delete this user?</p>
         </div>
         <div class="modal-footer">
-          <button type="button" data-dismiss="modal" v-on:click="deleteUser"
+          <button type="button" data-dismiss="modal"
+            v-on:click="deleteUser" name="deleteUser"
             class="btn btn-default btn-hover-danger btn-circle">
             <i class="fa fa-check" aria-hidden="true"></i></button>
           <button type="button" data-dismiss="modal"
