@@ -11195,6 +11195,13 @@ var app = new Vue({
     users: []
   },
   methods: {
+
+    /**
+     * Get button element from event target
+     * Mostly used with onclick
+     * @param  {event} event DOM Event Object
+     * @return {object} DOM Element
+     */
     getTargetButtonFromEvent: function getTargetButtonFromEvent(event) {
       var button = $(event.target).get(0);
 
@@ -43506,6 +43513,7 @@ module.exports = function normalizeComponent (
   },
 
   methods: {
+
     /**
      * Get users from API
      * @return {Promise} Users list request
@@ -43515,10 +43523,22 @@ module.exports = function normalizeComponent (
         return res.data;
       });
     },
+
+    /**
+     * Set user id as value to button deleteUser button
+     * @param {event} event DOM Event Object
+     * @return {void}
+     */
     setUserIdForDelete: function setUserIdForDelete(event) {
       var id = $(this.$parent.getTargetButtonFromEvent(event)).val();
       $('#users-delete button[name="deleteUser"]').val(id);
     },
+
+    /**
+     * Delete user
+     * @param {event} event DOM Event Object
+     * @return {void}
+     */
     deleteUser: function deleteUser(event) {
       var _this2 = this;
 

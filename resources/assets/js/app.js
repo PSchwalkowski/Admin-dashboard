@@ -11,6 +11,13 @@ const app = new Vue({
     users: []
   },
   methods: {
+		
+		/**
+		 * Get button element from event target
+		 * Mostly used with onclick
+		 * @param  {event} event DOM Event Object
+		 * @return {object} DOM Element
+		 */
     getTargetButtonFromEvent: (event) => {
       var button = $(event.target).get(0);
 

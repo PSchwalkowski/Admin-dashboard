@@ -71,6 +71,7 @@
 			});
     },
     methods: {
+
 			/**
 			 * Get users from API
 			 * @return {Promise} Users list request
@@ -80,10 +81,22 @@
 					return res.data;
         });
       },
+
+			/**
+			 * Set user id as value to button deleteUser button
+			 * @param {event} event DOM Event Object
+			 * @return {void}
+			 */
       setUserIdForDelete: function(event) {
         var id = $(this.$parent.getTargetButtonFromEvent(event)).val();
         $('#users-delete button[name="deleteUser"]').val(id);
       },
+
+			/**
+			 * Delete user
+			 * @param {event} event DOM Event Object
+			 * @return {void}
+			 */
       deleteUser: function(event) {
         var id = parseInt($(this.$parent.getTargetButtonFromEvent(event)).val());
 
