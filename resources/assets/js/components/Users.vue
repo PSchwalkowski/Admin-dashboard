@@ -1,36 +1,44 @@
 <template>
-  <div id="users">
+	<div class="panel panel-default">
+		<div class="panel-heading"></div>
+		<div class="panel-body">
+			<table class="table table-striped table-hover" id="users-list">
+	      <thead>
+	        <th>ID</th>
+	        <th>Name</th>
+	        <th>E-mail</th>
+	        <th width="80px"></th>
+	      </thead>
+	      <tbody>
+	        <tr v-for="(user, index) in users" v-bind:style="index > 9 ? {display: 'none'} : {}">
+	          <td>{{ user.id }}</td>
+	          <td>{{ user.name }}</td>
+	          <td>{{ user.email }}</td>
+	          <td>
+	            <button type="button" name="user-edit" v-bind:value="user.id"
+	              class="btn btn-default btn-hover-primary btn-circle"
+	              data-toggle="modal" data-target="#users-edit">
+	              <i class="fa fa-pencil" aria-hidden="true"></i>
+	            </button>
+	            <button type="button" name="user-delete"
+	              v-bind:value="user.id" v-on:click="setUserIdForDelete"
+	              class="btn btn-default btn-hover-danger btn-circle"
+	              data-toggle="modal" data-target="#users-delete">
+	              <i class="fa fa-trash-o" aria-hidden="true"></i>
+	            </button>
+	          </td>
+	        </tr>
+	      </tbody>
+	    </table>
+		</div>
+		<div class="panel-footer text-center">
+			<button type="button" v-on:click="loadMore"
+				class="btn btn-default btn-circle">
+				<i class="fa fa-chevron-down" aria-hidden="true"></i>
+			</button>
+		</div>
 
-    <table class="table table-striped table-hover">
-      <thead>
-        <th>ID</th>
-        <th>Name</th>
-        <th>E-mail</th>
-        <th width="80px"></th>
-      </thead>
-      <tbody>
-        <tr v-for="user in users">
-          <td>{{ user.id }}</td>
-          <td>{{ user.name }}</td>
-          <td>{{ user.email }}</td>
-          <td>
-            <button type="button" name="user-edit" v-bind:value="user.id"
-              class="btn btn-default btn-hover-primary btn-circle"
-              data-toggle="modal" data-target="#users-edit">
-              <i class="fa fa-pencil" aria-hidden="true"></i>
-            </button>
-            <button type="button" name="user-delete"
-              v-bind:value="user.id" v-on:click="setUserIdForDelete"
-              class="btn btn-default btn-hover-danger btn-circle"
-              data-toggle="modal" data-target="#users-delete">
-              <i class="fa fa-trash-o" aria-hidden="true"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
-
-    <!-- Modals -->
+		<!-- Modals -->
     <div class="modal fade" id="users-delete" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -115,8 +123,8 @@
         </div>
       </div>
     </div>
+	</div>
 
-  </div>
 </template>
 
 <script>
@@ -143,6 +151,11 @@
         });
       },
 
+			/**
+			 * Create user
+			 * @param  {event} event DOM Event Object
+			 * @return	{void}
+			 */
 			createUser: function(event) {
 				event.preventDefault();
 
@@ -207,7 +220,19 @@
         .catch(error => {
           console.error(error);
         });
-      }
+      },
+
+			loadMore: function(event) {
+				var hiddenUsers = $('#users-list tr:hidden');
+
+				hiddenUsers.slice(0, 10).each(function() {
+					$(this).fadeIn();
+				});
+
+				if (hiddenUsers.length < 10) {
+					$(this.$parent.getTargetButtonFromEvent(event)).hide();
+				}
+			}
     }
   }
 </script>
