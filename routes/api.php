@@ -17,8 +17,11 @@ Route::group([
   'middleware' => 'api',
   'namespace' => 'Api'
 ], function() {
+
   Route::group(['prefix' => 'users'], function() {
+
     Route::get('/', 'UserController@getAll');
+    Route::post('/', 'UserController@create');
     Route::delete('/', 'UserController@delete');
   });
 });

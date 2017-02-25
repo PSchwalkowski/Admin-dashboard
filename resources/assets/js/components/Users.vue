@@ -54,6 +54,67 @@
         </div>
       </div>
     </div>
+    <div class="modal fade" id="users-create" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+              aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Create new user</h4>
+          </div>
+          <form role="form" action="" v-on:submit="createUser">
+						<div class="modal-body">
+							<div class="alert alert-danger hidden">
+								<ul></ul>
+							</div>
+
+							<fieldset>
+								<div class="form-group has-feedback">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-user-o" aria-hidden="true"></i>
+										</div>
+										<input type="text" name="name" class="form-control"
+											placeholder="Username">
+									</div>
+								</div>
+
+								<div class="form-group has-feedback">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-envelope-o" aria-hidden="true"></i>
+										</div>
+										<input type="email" name="email" class="form-control"
+											placeholder="E-Mail">
+									</div>
+								</div>
+
+								<div class="form-group has-feedback">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-lock" aria-hidden="true"></i>
+										</div>
+										<input type="password" name="password" class="form-control"
+											placeholder="E-Mail">
+									</div>
+								</div>
+							</fieldset>
+	          </div>
+	          <div class="modal-footer">
+						<button type="reset"
+							class="btn btn-default btn-hover-info btn-circle pull-left">
+							<i class="fa fa-refresh" aria-hidden="true"></i></button>
+	            <button type="submit" name="createUser"
+	              class="btn btn-default btn-hover-success btn-circle">
+	              <i class="fa fa-check" aria-hidden="true"></i></button>
+	            <button type="button" data-dismiss="modal"
+	              class="btn btn-default btn-hover-warning btn-circle">
+	              <i class="fa fa-times" aria-hidden="true"></i></button>
+	          </div>
+          </form>
+        </div>
+      </div>
+    </div>
 
   </div>
 </template>
@@ -77,10 +138,43 @@
 			 * @return {Promise} Users list request
 			 */
       getUsers: function() {
-        return axios.get('/api/users').then(res => {
+        return axios.get('/api/v1/users').then(res => {
 					return res.data;
         });
       },
+
+			createUser: function(event) {
+				event.preventDefault();
+
+				const modal = $('#users-create');
+				const errorsList = $('.alert ul', modal);
+				const formData = {
+					name: $('[name="name"]').val(),
+					email: $('[name="email"]').val(),
+					password: $('[name="password"]').val()
+				}
+
+				axios.post('/api/v1/users', formData).then(res => {
+					if (res.status == 201) {
+						errorsList.parent().addClass('hidden');
+						$('.form-group', modal).removeClass('has-error');
+
+						this.users.push(res.data);
+						modal.modal('hide');
+						$('form', modal).get(0).reset();
+					}
+				})
+				.catch(error => {
+					$('.form-group', modal).removeClass('has-error');
+					errorsList.parent().removeClass('hidden');
+					errorsList.empty();
+
+					$.each(error.response.data, function(field, message) {
+						errorsList.append($('<li/>').text(message[0]));
+						$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
+					});
+				});
+			},
 
 			/**
 			 * Set user id as value to button deleteUser button
@@ -100,7 +194,7 @@
       deleteUser: function(event) {
         var id = parseInt($(this.$parent.getTargetButtonFromEvent(event)).val());
 
-        axios.delete('/api/users/', {
+        axios.delete('/api/v1/users/', {
           data: { id: id }
         })
         .then(res => {
