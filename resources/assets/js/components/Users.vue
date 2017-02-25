@@ -15,7 +15,8 @@
 	          <td>{{ user.name }}</td>
 	          <td>{{ user.email }}</td>
 	          <td>
-	            <button type="button" name="user-edit" v-bind:value="user.id"
+	            <button type="button" name="user-edit"
+							 	v-bind:value="user.id" v-on:click="setUserDataForEdit"
 	              class="btn btn-default btn-hover-primary btn-circle"
 	              data-toggle="modal" data-target="#users-edit">
 	              <i class="fa fa-pencil" aria-hidden="true"></i>
@@ -70,7 +71,7 @@
               aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Create new user</h4>
           </div>
-          <form role="form" action="" v-on:submit="createUser">
+          <form role="form" v-on:submit="createUser">
 						<div class="modal-body">
 							<div class="alert alert-danger hidden">
 								<ul></ul>
@@ -103,7 +104,72 @@
 											<i class="fa fa-lock" aria-hidden="true"></i>
 										</div>
 										<input type="password" name="password" class="form-control"
+											placeholder="Password">
+									</div>
+								</div>
+							</fieldset>
+	          </div>
+	          <div class="modal-footer">
+						<button type="reset"
+							class="btn btn-default btn-hover-info btn-circle pull-left">
+							<i class="fa fa-refresh" aria-hidden="true"></i></button>
+	            <button type="submit" name="createUser"
+	              class="btn btn-default btn-hover-success btn-circle">
+	              <i class="fa fa-check" aria-hidden="true"></i></button>
+	            <button type="button" data-dismiss="modal"
+	              class="btn btn-default btn-hover-warning btn-circle">
+	              <i class="fa fa-times" aria-hidden="true"></i></button>
+	          </div>
+          </form>
+        </div>
+      </div>
+    </div>
+    <div class="modal fade" id="users-edit" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal"
+              aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Edit user: <span class="user-name"></span></h4>
+          </div>
+          <form role="form" v-on:submit="editUser">
+						<div class="modal-body">
+							<div class="alert alert-danger hidden">
+								<ul></ul>
+							</div>
+
+							<fieldset>
+								<div class="form-hidden">
+									<input type="hidden" name="id">
+								</div>
+
+								<div class="form-group has-feedback">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-user-o" aria-hidden="true"></i>
+										</div>
+										<input type="text" name="name" class="form-control"
+											placeholder="Username">
+									</div>
+								</div>
+
+								<div class="form-group has-feedback">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-envelope-o" aria-hidden="true"></i>
+										</div>
+										<input type="email" name="email" class="form-control"
 											placeholder="E-Mail">
+									</div>
+								</div>
+
+								<div class="form-group has-feedback">
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-lock" aria-hidden="true"></i>
+										</div>
+										<input type="password" name="password" class="form-control"
+											placeholder="New password (optional)">
 									</div>
 								</div>
 							</fieldset>
@@ -153,6 +219,19 @@
       },
 
 			/**
+			 * Get user record from local users list
+			 * @param  {number} id
+			 * @return {object} user record
+			 */
+			getUser: function(id) {
+				let result = this.users.filter(user => {
+					if (user.id == id) return user;
+				});
+
+				return result[0];
+			},
+
+			/**
 			 * Create user
 			 * @param  {event} event DOM Event Object
 			 * @return	{void}
@@ -174,6 +253,69 @@
 						$('.form-group', modal).removeClass('has-error');
 
 						this.users.push(res.data);
+						modal.modal('hide');
+						$('form', modal).get(0).reset();
+					}
+				})
+				.catch(error => {
+					$('.form-group', modal).removeClass('has-error');
+					errorsList.parent().removeClass('hidden');
+					errorsList.empty();
+
+					$.each(error.response.data, function(field, message) {
+						errorsList.append($('<li/>').text(message[0]));
+						$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
+					});
+				});
+			},
+
+			/**
+			 * Fill edit form with user data
+			 * @param {event} event DOM Event Object
+			 * @return {void}
+			 */
+			setUserDataForEdit: function(event) {
+				  var userId = $(this.$parent.getTargetButtonFromEvent(event)).val();
+					let user = this.getUser(userId);
+
+					let modal = $('#users-edit');
+					$('.user-name', modal).text(user.name)
+					$('[name="name"]', modal).val(user.name);
+					$('[name="email"]', modal).val(user.email);
+					$('[name="password"]', modal).val();
+					$('[name="id"]', modal).val(user.id);
+			},
+
+			/**
+			 * Edit user
+			 * @param {event} event DOM Event Object
+			 * @return {void}
+			 */
+			editUser: function(event) {
+				event.preventDefault();
+
+				let modal = $('#users-edit');
+				let errorsList = $('.alert ul', modal);
+				let formData = {
+					id: $('[name="id"]', modal).val(),
+					name: $('[name="name"]', modal).val(),
+					email: $('[name="email"]', modal).val()
+				}
+
+				if ($('[name="password"]', modal).val().length > 0) {
+					formData.password = $('[name="password"]', modal).val();
+				}
+
+				axios.put('/api/v1/users', formData).then(res => {
+					if (res.status == 200) {
+						errorsList.parent().addClass('hidden');
+						$('.form-group', modal).removeClass('has-error');
+
+						let user = this.getUser(res.data.id);
+
+						user.name = res.data.name;
+						user.email = res.data.email;
+
 						modal.modal('hide');
 						$('form', modal).get(0).reset();
 					}

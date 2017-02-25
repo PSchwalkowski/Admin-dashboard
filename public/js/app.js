@@ -63,7 +63,7 @@
 /******/ 	__webpack_require__.p = "./";
 
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 42);
+/******/ 	return __webpack_require__(__webpack_require__.s = 41);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -11186,7 +11186,7 @@ module.exports = g;
 __webpack_require__(31);
 __webpack_require__(35);
 
-Vue.component('users', __webpack_require__(37));
+Vue.component('users', __webpack_require__(36));
 
 // Create Vue instance
 var app = new Vue({
@@ -12203,6 +12203,72 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	data: function data() {
@@ -12229,6 +12295,19 @@ module.exports = function spread(callback) {
 			return axios.get('/api/v1/users').then(function (res) {
 				return res.data;
 			});
+		},
+
+		/**
+   * Get user record from local users list
+   * @param  {number} id
+   * @return {object} user record
+   */
+		getUser: function getUser(id) {
+			var result = this.users.filter(function (user) {
+				if (user.id == id) return user;
+			});
+
+			return result[0];
 		},
 
 		/**
@@ -12271,6 +12350,70 @@ module.exports = function spread(callback) {
 		},
 
 		/**
+   * Fill edit form with user data
+   * @param {event} event DOM Event Object
+   * @return {void}
+   */
+		setUserDataForEdit: function setUserDataForEdit(event) {
+			var userId = $(this.$parent.getTargetButtonFromEvent(event)).val();
+			var user = this.getUser(userId);
+
+			var modal = $('#users-edit');
+			$('.user-name', modal).text(user.name);
+			$('[name="name"]', modal).val(user.name);
+			$('[name="email"]', modal).val(user.email);
+			$('[name="password"]', modal).val();
+			$('[name="id"]', modal).val(user.id);
+		},
+
+		/**
+   * Edit user
+   * @param {event} event DOM Event Object
+   * @return {void}
+   */
+		editUser: function editUser(event) {
+			var _this3 = this;
+
+			event.preventDefault();
+
+			var modal = $('#users-edit');
+			var errorsList = $('.alert ul', modal);
+			var formData = {
+				id: $('[name="id"]', modal).val(),
+				name: $('[name="name"]', modal).val(),
+				email: $('[name="email"]', modal).val()
+			};
+
+			if ($('[name="password"]', modal).val().length > 0) {
+				formData.password = $('[name="password"]', modal).val();
+			}
+
+			axios.put('/api/v1/users', formData).then(function (res) {
+				if (res.status == 200) {
+					errorsList.parent().addClass('hidden');
+					$('.form-group', modal).removeClass('has-error');
+
+					var user = _this3.getUser(res.data.id);
+
+					user.name = res.data.name;
+					user.email = res.data.email;
+
+					modal.modal('hide');
+					$('form', modal).get(0).reset();
+				}
+			}).catch(function (error) {
+				$('.form-group', modal).removeClass('has-error');
+				errorsList.parent().removeClass('hidden');
+				errorsList.empty();
+
+				$.each(error.response.data, function (field, message) {
+					errorsList.append($('<li/>').text(message[0]));
+					$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
+				});
+			});
+		},
+
+		/**
    * Set user id as value to button deleteUser button
    * @param {event} event DOM Event Object
    * @return {void}
@@ -12286,7 +12429,7 @@ module.exports = function spread(callback) {
    * @return {void}
    */
 		deleteUser: function deleteUser(event) {
-			var _this3 = this;
+			var _this4 = this;
 
 			var id = parseInt($(this.$parent.getTargetButtonFromEvent(event)).val());
 			if (id == this.user.id) {
@@ -12299,7 +12442,7 @@ module.exports = function spread(callback) {
 				data: { id: id }
 			}).then(function (res) {
 				if (res.status === 204) {
-					_this3.users = _this3.users.filter(function (user, index) {
+					_this4.users = _this4.users.filter(function (user, index) {
 						if (user.id !== id) return user;
 					});
 				}
@@ -12329,7 +12472,7 @@ module.exports = function spread(callback) {
 
 "use strict";
 /* WEBPACK VAR INJECTION */(function(__webpack_provided_window_dot_jQuery) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(40);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue__ = __webpack_require__(39);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_vue___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_vue__);
 
 window._ = __webpack_require__(34);
@@ -31908,7 +32051,7 @@ if (typeof jQuery === 'undefined') {
   }
 }.call(this));
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(41)(module)))
+/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(9), __webpack_require__(40)(module)))
 
 /***/ }),
 /* 35 */
@@ -31931,15 +32074,14 @@ if (typeof jQuery === 'undefined') {
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
-/* 36 */,
-/* 37 */
+/* 36 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var Component = __webpack_require__(38)(
+var Component = __webpack_require__(37)(
   /* script */
   __webpack_require__(30),
   /* template */
-  __webpack_require__(39),
+  __webpack_require__(38),
   /* scopeId */
   null,
   /* cssModules */
@@ -31966,7 +32108,7 @@ module.exports = Component.exports
 
 
 /***/ }),
-/* 38 */
+/* 37 */
 /***/ (function(module, exports) {
 
 module.exports = function normalizeComponent (
@@ -32019,7 +32161,7 @@ module.exports = function normalizeComponent (
 
 
 /***/ }),
-/* 39 */
+/* 38 */
 /***/ (function(module, exports, __webpack_require__) {
 
 module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32047,6 +32189,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": user.id,
         "data-toggle": "modal",
         "data-target": "#users-edit"
+      },
+      on: {
+        "click": _vm.setUserDataForEdit
       }
     }, [_c('i', {
       staticClass: "fa fa-pencil",
@@ -32133,13 +32278,33 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "modal-content"
   }, [_vm._m(4), _vm._v(" "), _c('form', {
     attrs: {
-      "role": "form",
-      "action": ""
+      "role": "form"
     },
     on: {
       "submit": _vm.createUser
     }
-  }, [_vm._m(5), _vm._v(" "), _vm._m(6)])])])])])
+  }, [_vm._m(5), _vm._v(" "), _vm._m(6)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "users-edit",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(7), _vm._v(" "), _c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "submit": _vm.editUser
+    }
+  }, [_vm._m(8), _vm._v(" "), _vm._m(9)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("E-mail")]), _vm._v(" "), _c('th', {
     attrs: {
@@ -32256,7 +32421,129 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "type": "password",
       "name": "password",
+      "placeholder": "Password"
+    }
+  })])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-hover-info btn-circle pull-left",
+    attrs: {
+      "type": "reset"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-refresh",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default btn-hover-success btn-circle",
+    attrs: {
+      "type": "submit",
+      "name": "createUser"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-check",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default btn-hover-warning btn-circle",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-times",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("Edit user: "), _c('span', {
+    staticClass: "user-name"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "alert alert-danger hidden"
+  }, [_c('ul')]), _vm._v(" "), _c('fieldset', [_c('div', {
+    staticClass: "form-hidden"
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "id"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa fa-user-o",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "name",
+      "placeholder": "Username"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa fa-envelope-o",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "email",
+      "name": "email",
       "placeholder": "E-Mail"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa fa-lock",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "password",
+      "name": "password",
+      "placeholder": "New password (optional)"
     }
   })])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
@@ -32305,7 +32592,7 @@ if (false) {
 }
 
 /***/ }),
-/* 40 */
+/* 39 */
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -40881,7 +41168,7 @@ module.exports = Vue$3;
 /* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3), __webpack_require__(9)))
 
 /***/ }),
-/* 41 */
+/* 40 */
 /***/ (function(module, exports) {
 
 module.exports = function(module) {
@@ -40909,7 +41196,7 @@ module.exports = function(module) {
 
 
 /***/ }),
-/* 42 */
+/* 41 */
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(10);

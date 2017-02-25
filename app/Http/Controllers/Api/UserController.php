@@ -28,7 +28,7 @@ class UserController extends Controller {
     ]);
 
 		if ($validator->fails()) {
-      return response()->json($validator->errors(), 403);
+      return response()->json($validator->errors(), 400);
     }
 
 		$User = User::create([
@@ -38,6 +38,34 @@ class UserController extends Controller {
 		]);
 
 		return response()->json($User, 201);
+	}
+
+	public function edit(Request $request) {
+		$validator = Validator::make($request->all(), [
+      'id' => 'required|exists:users,id',
+	    'name' => 'required|unique:users,name,' . $request->get('id'),
+      'email' => 'required|unique:users,email,' . $request->get('id'),
+			'password' => 'min:8'
+    ], [
+			'exists' => 'User with given id not exists'
+		]);
+
+		if ($validator->fails()) {
+      return response()->json($validator->errors(), 400);
+    }
+
+		$User = User::find($request->get('id'))->fill([
+			'name' => $request->get('name'),
+			'email' => $request->get('email')
+		]);
+
+		$User->save();
+
+		if ($request->has('password')) {
+			$User->password = bcrypt($request->get('password'));
+		}
+
+		return response()->json($User, 200);
 	}
 
   /**
@@ -52,7 +80,7 @@ class UserController extends Controller {
     ]);
 
     if ($validator->fails()) {
-      return response()->json($validator->errors()->first('id'), 403);
+      return response()->json($validator->errors()->first('id'), 400);
     }
 
     User::destroy($request->get('id'));
