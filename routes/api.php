@@ -22,6 +22,7 @@ Route::group([
 
     Route::get('/', 'UserController@getAll');
     Route::post('/', 'UserController@create');
+    Route::put('/', 'UserController@edit');
     Route::delete('/', 'UserController@delete');
   });
 });

@@ -114,7 +114,7 @@
                 </a></li>
                 <li class="divider"></li>
                 <li>
-                  <a href="{{ url('/logout') }}"
+                  <a href="{{ ('/logout') }}"
                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                     <i class="fa fa-sign-out fa-fw"></i> Logout
                   </a>
@@ -145,20 +145,9 @@
                 <li><a href="/">
                   <i class="fa fa-dashboard fa-fw"></i> Dashboard
                 </a></li>
-                <li><a href="{{ url('users')}}">
-                  <i class="fa fa-users fa-fw"></i> Users
-                </a></li>
-                {{--
-                  <li>
-                    <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts
-                      <span class="fa arrow"></span>
-                    </a>
-                    <ul class="nav nav-second-level">
-                      <li><a href="#">Flot Charts</a></li>
-                      <li><a href="#">Morris.js Charts</a></li>
-                    </ul>
-                  </li>
-                --}}
+                <li><a href="{{ route('users.index')}}">
+	                <i class="fa fa-users fa-fw"></i> Users
+	              </a></li>
               </ul>
             </div>
           </div>
