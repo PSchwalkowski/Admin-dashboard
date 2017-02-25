@@ -131,7 +131,8 @@
   export default {
     data() {
       return {
-        users: this.users || []
+        users: this.$parent.users,
+        user: this.$parent.user
       }
     },
     created() {
@@ -206,7 +207,12 @@
 			 */
       deleteUser: function(event) {
         var id = parseInt($(this.$parent.getTargetButtonFromEvent(event)).val());
+				if (id == this.user.id) {
+					alert('You can\'t remove your own account ;)');
+					return;
+				}
 
+				return;
         axios.delete('/api/v1/users/', {
           data: { id: id }
         })

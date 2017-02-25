@@ -20,6 +20,8 @@
       window.Laravel = {!! json_encode([
         'csrfToken' => csrf_token(),
       ]) !!};
+
+			var currentUser = {!! json_encode(Auth::user()) !!}
     </script>
   </head>
   <body>

@@ -8,10 +8,14 @@ Vue.component('users', require('./components/Users.vue'));
 const app = new Vue({
   el: 'body > div',
   data: {
-    users: []
+    users: [],
+		user: {}
   },
+	created: function() {
+		this.user = currentUser;
+	},
   methods: {
-		
+
 		/**
 		 * Get button element from event target
 		 * Mostly used with onclick

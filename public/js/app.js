@@ -11192,7 +11192,11 @@ Vue.component('users', __webpack_require__(37));
 var app = new Vue({
   el: 'body > div',
   data: {
-    users: []
+    users: [],
+    user: {}
+  },
+  created: function created() {
+    this.user = currentUser;
   },
   methods: {
 
@@ -12203,7 +12207,8 @@ module.exports = function spread(callback) {
 /* harmony default export */ __webpack_exports__["default"] = {
 	data: function data() {
 		return {
-			users: this.users || []
+			users: this.$parent.users,
+			user: this.$parent.user
 		};
 	},
 	created: function created() {
@@ -12284,7 +12289,12 @@ module.exports = function spread(callback) {
 			var _this3 = this;
 
 			var id = parseInt($(this.$parent.getTargetButtonFromEvent(event)).val());
+			if (id == this.user.id) {
+				alert('You can\'t remove your own account ;)');
+				return;
+			}
 
+			return;
 			axios.delete('/api/v1/users/', {
 				data: { id: id }
 			}).then(function (res) {
