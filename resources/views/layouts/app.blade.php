@@ -35,14 +35,16 @@
             <span class="icon-bar"></span>
             <span class="icon-bar"></span>
           </button>
-          <a class="navbar-brand" href="index.html">{{ config('app.name') }}</a>
+          <a class="navbar-brand" href="{{ route('home') }}">{{ config('app.name') }}</a>
         </div><!-- /.navbar-header -->
 
         @if (!Auth::guest())
           <ul class="nav navbar-top-links navbar-right">
             <li class="dropdown">
               <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                <i class="fa fa-envelope fa-fw"></i> <i class="fa fa-caret-down"></i>
+								<span class="badge">2</span>
+                <i class="fa fa-envelope fa-fw"></i>
+								<i class="fa fa-caret-down"></i>
               </a>
               <ul class="dropdown-menu dropdown-messages">
                 <li><a href="#"><div>
@@ -142,12 +144,20 @@
                     </span>
                   </div><!-- /.input-group -->
                 </li>
-                <li><a href="/">
+                <li><a href="{{ route('home') }}">
                   <i class="fa fa-dashboard fa-fw"></i> Dashboard
                 </a></li>
-                <li><a href="{{ route('users.index')}}">
-	                <i class="fa fa-users fa-fw"></i> Users
-	              </a></li>
+								<li>
+                  <a href="#">
+										<i class="fa fa-bar-chart-o fa-fw"></i> Users Management
+                    <span class="fa arrow"></span>
+										<?php // TODO: Fix arrow position when active ?>
+                  </a>
+                  <ul class="nav nav-second-level">
+                    <li><a href="{{ route('users.index') }}">Users</a></li>
+                    <li><a href="#">Roles</a></li>
+                  </ul>
+                </li>
               </ul>
             </div>
           </div>

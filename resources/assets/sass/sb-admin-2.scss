@@ -119,14 +119,16 @@
 
   .arrow {
     float: right;
+		transition: ease-in-out .3s transform;
   }
 
   .fa.arrow:before {
     content: "\f104";
   }
 
-  .active > a > .fa.arrow:before {
-    content: "\f107";
+  .active > a > .fa.arrow {
+		transform: rotate(-90deg);
+		transition: ease-in-out .3s transform;
   }
 
   .nav {

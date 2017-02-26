@@ -11,8 +11,18 @@
 @import "node_modules/font-awesome/scss/font-awesome";
 @import "sb-admin-2";
 
-.navbar-static-top {
-  margin-bottom: 0;
+.navbar {
+	&-static-top {
+	  margin-bottom: 0;
+	}
+
+	&-top-links {
+		.badge {
+			font-size: 8px;
+			padding: .5em .75em;
+			transform: translate(1em, -1em);
+		}
+	}
 }
 
 .nav li a {
@@ -32,7 +42,6 @@ button {
 }
 
 .btn {
-
   &-hover {
     &-primary:hover {
       color: white;
