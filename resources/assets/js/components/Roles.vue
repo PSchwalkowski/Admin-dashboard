@@ -12,7 +12,7 @@
 				<tbody>
 					<tr v-for="(role, index) in roles" v-bind:style="index > 9 ? {display: 'none'} : {}">
 						<td>{{ role.id }}</td>
-						<td>{{ role.display_name }} <small>{{ role.name }}</small></td>
+						<td>{{ role.display_name }} <small><em>{{ role.name }}</em></small></td>
 						<td>{{ role.description }}</td>
 						<td>
 							<button type="button" name="role-edit"
@@ -50,7 +50,6 @@
 		created() {
 			this.getRoles().then(roles => {
 				this.roles = roles;
-				console.log(this.roles);
 			});
 		},
 		methods: {

@@ -41277,7 +41277,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 		this.getRoles().then(function (roles) {
 			_this.roles = roles;
-			console.log(_this.roles);
 		});
 	},
 
@@ -41350,7 +41349,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       style: (index > 9 ? {
         display: 'none'
       } : {})
-    }, [_c('td', [_vm._v(_vm._s(role.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(role.display_name) + " "), _c('small', [_vm._v(_vm._s(role.name))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(role.description))]), _vm._v(" "), _c('td', [_c('button', {
+    }, [_c('td', [_vm._v(_vm._s(role.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(role.display_name) + " "), _c('small', [_c('em', [_vm._v(_vm._s(role.name))])])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(role.description))]), _vm._v(" "), _c('td', [_c('button', {
       staticClass: "btn btn-default btn-hover-primary btn-circle",
       attrs: {
         "type": "button",
