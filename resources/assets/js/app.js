@@ -3,6 +3,7 @@ require('./bootstrap');
 require('../../../node_modules/metismenu/dist/metisMenu.min.js');
 
 Vue.component('users', require('./components/Users.vue'));
+Vue.component('roles', require('./components/Roles.vue'));
 
 // Create Vue instance
 const app = new Vue({

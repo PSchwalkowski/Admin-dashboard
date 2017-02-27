@@ -155,7 +155,7 @@
                   </a>
                   <ul class="nav nav-second-level">
                     <li><a href="{{ route('users.index') }}">Users</a></li>
-                    <li><a href="#">Roles</a></li>
+                    <li><a href="{{ route('roles.index') }}">Roles</a></li>
                   </ul>
                 </li>
               </ul>

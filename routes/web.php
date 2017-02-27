@@ -15,6 +15,5 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Auth::routes();
 
-Route::group(['prefix' => 'users'], function() {
-  Route::get('/', 'UserController@index')->name('users.index');
-});
+Route::prefix('users')->get('/', 'UserController@index')->name('users.index');
+Route::prefix('roles')->get('/', 'RoleController@index')->name('roles.index');
