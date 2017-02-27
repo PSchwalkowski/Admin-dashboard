@@ -41272,9 +41272,27 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 			roles: []
 		};
 	},
-	created: function created() {},
+	created: function created() {
+		var _this = this;
 
-	methods: {}
+		this.getRoles().then(function (roles) {
+			_this.roles = roles;
+			console.log(_this.roles);
+		});
+	},
+
+	methods: {
+
+		/**
+   * Get roles from API
+   * @return {Promise} Roles list request
+   */
+		getRoles: function getRoles() {
+			return axios.get('/api/v1/roles').then(function (res) {
+				return res.data;
+			});
+		}
+	}
 };
 
 /***/ }),
@@ -41325,21 +41343,21 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('table', {
     staticClass: "table table-striped table-hover",
     attrs: {
-      "id": "users-list"
+      "id": "roles-list"
     }
   }, [_vm._m(0), _vm._v(" "), _c('tbody', _vm._l((_vm.roles), function(role, index) {
     return _c('tr', {
       style: (index > 9 ? {
         display: 'none'
       } : {})
-    }, [_c('td', [_vm._v(_vm._s(role.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(role.name))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(role.email))]), _vm._v(" "), _c('td', [_c('button', {
+    }, [_c('td', [_vm._v(_vm._s(role.id))]), _vm._v(" "), _c('td', [_vm._v(_vm._s(role.display_name) + " "), _c('small', [_vm._v(_vm._s(role.name))])]), _vm._v(" "), _c('td', [_vm._v(_vm._s(role.description))]), _vm._v(" "), _c('td', [_c('button', {
       staticClass: "btn btn-default btn-hover-primary btn-circle",
       attrs: {
         "type": "button",
-        "name": "user-edit",
+        "name": "role-edit",
         "value": role.id,
         "data-toggle": "modal",
-        "data-target": "#users-edit"
+        "data-target": "#roles-edit"
       }
     }, [_c('i', {
       staticClass: "fa fa-pencil",
@@ -41350,10 +41368,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "btn btn-default btn-hover-danger btn-circle",
       attrs: {
         "type": "button",
-        "name": "user-delete",
+        "name": "role-delete",
         "value": role.id,
         "data-toggle": "modal",
-        "data-target": "#users-delete"
+        "data-target": "#roles-delete"
       }
     }, [_c('i', {
       staticClass: "fa fa-trash-o",
@@ -41363,7 +41381,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     })])])])
   }))])]), _vm._v(" "), _vm._m(1)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('thead', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("E-mail")]), _vm._v(" "), _c('th', {
+  return _c('thead', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Description")]), _vm._v(" "), _c('th', {
     attrs: {
       "width": "80px"
     }
