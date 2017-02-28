@@ -20,6 +20,11 @@ class UserController extends Controller {
     return response()->json(User::get());
   }
 
+	/**
+	 * Create user
+	 * @param  Request $request
+	 * @return Illuminate\Http\Response
+	 */
 	public function create(Request $request) {
 		$validator = Validator::make($request->all(), [
       'name' => 'required|unique:users,name',
@@ -34,12 +39,17 @@ class UserController extends Controller {
 		$User = User::create([
 			'name' => $request->get('name'),
 			'email' => $request->get('email'),
-			'password' => $request->get('password'),
+			'password' => bcrypt($request->get('password')),
 		]);
 
 		return response()->json($User, 201);
 	}
 
+	/**
+	 * Edit user
+	 * @param  Request $request
+	 * @return Illuminate\Http\Response
+	 */
 	public function edit(Request $request) {
 		$validator = Validator::make($request->all(), [
       'id' => 'required|exists:users,id',
@@ -71,7 +81,7 @@ class UserController extends Controller {
   /**
    * Delete user
    * @method delete
-   * @param  Request $request [description]
+   * @param  Request $request
    * @return Illuminate\Http\Response
    */
   public function delete(Request $request) {
