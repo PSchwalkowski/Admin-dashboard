@@ -29,7 +29,8 @@ class UserController extends Controller {
 		$validator = Validator::make($request->all(), [
       'name' => 'required|unique:users,name',
       'email' => 'required|unique:users,email',
-			'password' => 'required|min:8'
+			'password' => 'required|min:8',
+			'role' => 'required|exists:roles,id'
     ]);
 
 		if ($validator->fails()) {
@@ -41,6 +42,8 @@ class UserController extends Controller {
 			'email' => $request->get('email'),
 			'password' => bcrypt($request->get('password')),
 		]);
+
+		$User->attachRole($request->get('role'));
 
 		return response()->json($User, 201);
 	}

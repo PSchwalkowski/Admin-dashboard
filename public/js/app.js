@@ -11246,8 +11246,9 @@ Vue.component('roles', __webpack_require__(38));
 var app = new Vue({
   el: 'body > div',
   data: {
+    user: {},
     users: [],
-    user: {}
+    roles: []
   },
   created: function created() {
     this.user = currentUser;
@@ -12727,12 +12728,46 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	data: function data() {
 		return {
+			user: this.$parent.user,
 			users: this.$parent.users,
-			user: this.$parent.user
+			roles: this.$parent.roles
 		};
 	},
 	created: function created() {
@@ -12740,6 +12775,10 @@ module.exports = function spread(callback) {
 
 		this.getUsers().then(function (users) {
 			_this.users = users;
+		});
+
+		this.getRoles().then(function (roles) {
+			_this.roles = roles;
 		});
 	},
 
@@ -12761,6 +12800,16 @@ module.exports = function spread(callback) {
    */
 		getUsers: function getUsers() {
 			return axios.get('/api/v1/users').then(function (res) {
+				return res.data;
+			});
+		},
+
+		/**
+   * Get roles from API
+   * @return {Promise} Roles list request
+   */
+		getRoles: function getRoles() {
+			return axios.get('/api/v1/roles').then(function (res) {
 				return res.data;
 			});
 		},
@@ -12793,7 +12842,8 @@ module.exports = function spread(callback) {
 			var formData = {
 				name: $('[name="name"]').val(),
 				email: $('[name="email"]').val(),
-				password: $('[name="password"]').val()
+				password: $('[name="password"]').val(),
+				role: $('[name="role"]').val()
 			};
 
 			axios.post('/api/v1/users', formData).then(function (res) {
@@ -33131,7 +33181,29 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "submit": _vm.createUser
     }
-  }, [_vm._m(2), _vm._v(" "), _vm._m(3)])])])]), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "modal-body"
+  }, [_vm._m(2), _vm._v(" "), _c('fieldset', [_vm._m(3), _vm._v(" "), _vm._m(4), _vm._v(" "), _vm._m(5), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "role"
+    }
+  }, [_vm._v("Choose role")]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(6), _vm._v(" "), _c('select', {
+    staticClass: "form-control",
+    attrs: {
+      "name": "role"
+    }
+  }, _vm._l((_vm.roles), function(role) {
+    return _c('option', {
+      domProps: {
+        "value": role.id
+      }
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(role.display_name || role.name) + "\n\t\t\t\t\t\t\t\t\t\t\t")])
+  }))])])])]), _vm._v(" "), _vm._m(7)])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "users-edit",
@@ -33145,14 +33217,36 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
-  }, [_vm._m(4), _vm._v(" "), _c('form', {
+  }, [_vm._m(8), _vm._v(" "), _c('form', {
     attrs: {
       "role": "form"
     },
     on: {
       "submit": _vm.editUser
     }
-  }, [_vm._m(5), _vm._v(" "), _vm._m(6)])])])]), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "modal-body"
+  }, [_vm._m(9), _vm._v(" "), _c('fieldset', [_vm._m(10), _vm._v(" "), _vm._m(11), _vm._v(" "), _vm._m(12), _vm._v(" "), _vm._m(13), _vm._v(" "), _c('hr'), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('label', {
+    staticClass: "control-label",
+    attrs: {
+      "for": "role"
+    }
+  }, [_vm._v("Choose role")]), _vm._v(" "), _c('div', {
+    staticClass: "input-group"
+  }, [_vm._m(14), _vm._v(" "), _c('select', {
+    staticClass: "form-control",
+    attrs: {
+      "name": "role"
+    }
+  }, _vm._l((_vm.roles), function(role) {
+    return _c('option', {
+      domProps: {
+        "value": role.id
+      }
+    }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(role.display_name || role.name) + "\n\t\t\t\t\t\t\t\t\t\t\t")])
+  }))])])])]), _vm._v(" "), _vm._m(15)])])])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "users-delete",
@@ -33166,7 +33260,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
-  }, [_vm._m(7), _vm._v(" "), _vm._m(8), _vm._v(" "), _c('div', {
+  }, [_vm._m(16), _vm._v(" "), _vm._m(17), _vm._v(" "), _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default btn-hover-danger btn-circle",
@@ -33183,7 +33277,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _vm._m(9)])])])])])
+  })]), _vm._v(" "), _vm._m(18)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("E-mail")]), _vm._v(" "), _c('th', {
     attrs: {
@@ -33209,10 +33303,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Create new user")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal-body"
-  }, [_c('div', {
     staticClass: "alert alert-danger hidden"
-  }, [_c('ul')]), _vm._v(" "), _c('fieldset', [_c('div', {
+  }, [_c('ul')])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "form-group has-feedback"
   }, [_c('div', {
     staticClass: "input-group"
@@ -33230,7 +33324,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "name",
       "placeholder": "Username"
     }
-  })])]), _vm._v(" "), _c('div', {
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "form-group has-feedback"
   }, [_c('div', {
     staticClass: "input-group"
@@ -33248,7 +33344,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "email",
       "placeholder": "E-Mail"
     }
-  })])]), _vm._v(" "), _c('div', {
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "form-group has-feedback"
   }, [_c('div', {
     staticClass: "input-group"
@@ -33266,7 +33364,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "password",
       "placeholder": "Password"
     }
-  })])])])])
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa fa-users",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-footer"
@@ -33324,17 +33431,19 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal-body"
-  }, [_c('div', {
     staticClass: "alert alert-danger hidden"
-  }, [_c('ul')]), _vm._v(" "), _c('fieldset', [_c('div', {
+  }, [_c('ul')])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "form-hidden"
   }, [_c('input', {
     attrs: {
       "type": "hidden",
       "name": "id"
     }
-  })]), _vm._v(" "), _c('div', {
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "form-group has-feedback"
   }, [_c('div', {
     staticClass: "input-group"
@@ -33352,7 +33461,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "name",
       "placeholder": "Username"
     }
-  })])]), _vm._v(" "), _c('div', {
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "form-group has-feedback"
   }, [_c('div', {
     staticClass: "input-group"
@@ -33370,7 +33481,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "email",
       "placeholder": "E-Mail"
     }
-  })])]), _vm._v(" "), _c('div', {
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "form-group has-feedback"
   }, [_c('div', {
     staticClass: "input-group"
@@ -33388,7 +33501,16 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "name": "password",
       "placeholder": "New password (optional)"
     }
-  })])])])])
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa fa-users",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-footer"

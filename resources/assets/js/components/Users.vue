@@ -84,6 +84,22 @@
 											placeholder="Password">
 									</div>
 								</div>
+
+								<hr>
+
+								<div class="form-group has-feedback">
+									<label for="role" class="control-label">Choose role</label>
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-users" aria-hidden="true"></i>
+										</div>
+										<select class="form-control" name="role">
+											<option v-for="role in roles" v-bind:value="role.id">
+												{{role.display_name || role.name}}
+											</option>
+										</select>
+									</div>
+								</div>
 							</fieldset>
 	          </div>
 	          <div class="modal-footer">
@@ -149,6 +165,23 @@
 											placeholder="New password (optional)">
 									</div>
 								</div>
+
+								<hr>
+
+								<div class="form-group has-feedback">
+									<label for="role" class="control-label">Choose role</label>
+									<div class="input-group">
+										<div class="input-group-addon">
+											<i class="fa fa-users" aria-hidden="true"></i>
+										</div>
+										<select class="form-control" name="role">
+											<!-- TODO: Add selected! -->
+											<option v-for="role in roles" v-bind:value="role.id">
+												{{role.display_name || role.name}}
+											</option>
+										</select>
+									</div>
+								</div>
 							</fieldset>
 	          </div>
 	          <div class="modal-footer">
@@ -197,14 +230,19 @@
   export default {
     data() {
       return {
+				user: this.$parent.user,
         users: this.$parent.users,
-        user: this.$parent.user
+				roles: this.$parent.roles
       }
     },
     created() {
 			this.getUsers().then(users => {
 				this.users = users;
 			});
+
+			this.getRoles().then(roles => {
+				this.roles = roles;
+			})
     },
 		watch: {
 			users: function(users) {
@@ -224,6 +262,16 @@
 			 */
       getUsers: function() {
         return axios.get('/api/v1/users').then(res => {
+					return res.data;
+        });
+      },
+
+			/**
+			 * Get roles from API
+			 * @return {Promise} Roles list request
+			 */
+      getRoles: function() {
+        return axios.get('/api/v1/roles').then(res => {
 					return res.data;
         });
       },
@@ -254,7 +302,8 @@
 				const formData = {
 					name: $('[name="name"]').val(),
 					email: $('[name="email"]').val(),
-					password: $('[name="password"]').val()
+					password: $('[name="password"]').val(),
+					role: $('[name="role"]').val()
 				}
 
 				axios.post('/api/v1/users', formData).then(res => {

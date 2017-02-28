@@ -9,8 +9,9 @@ Vue.component('roles', require('./components/Roles.vue'));
 const app = new Vue({
   el: 'body > div',
   data: {
+		user: {},
     users: [],
-		user: {}
+    roles: []
   },
 	created: function() {
 		this.user = currentUser;
