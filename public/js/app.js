@@ -12337,6 +12337,16 @@ module.exports = function spread(callback) {
 		});
 	},
 
+	watch: {
+		roles: function roles(_roles) {
+			var moreButton = $('button[name="loadMore"]');
+			if (_roles.length <= 10) {
+				moreButton.hide();
+			} else {
+				moreButton.show();
+			}
+		}
+	},
 	methods: {
 
 		/**
@@ -12733,6 +12743,16 @@ module.exports = function spread(callback) {
 		});
 	},
 
+	watch: {
+		users: function users(_users) {
+			var moreButton = $('button[name="loadMore"]');
+			if (_users.length <= 10) {
+				moreButton.hide();
+			} else {
+				moreButton.show();
+			}
+		}
+	},
 	methods: {
 
 		/**
@@ -32648,7 +32668,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('button', {
     staticClass: "btn btn-default btn-circle",
     attrs: {
-      "type": "button"
+      "type": "button",
+      "name": "loadMore"
     },
     on: {
       "click": _vm.loadMore
@@ -33078,7 +33099,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('button', {
     staticClass: "btn btn-default btn-circle",
     attrs: {
-      "type": "button"
+      "type": "button",
+      "name": "loadMore"
     },
     on: {
       "click": _vm.loadMore

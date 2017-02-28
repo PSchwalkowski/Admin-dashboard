@@ -33,7 +33,7 @@
 	    </table>
 		</div>
 		<div class="panel-footer text-center">
-			<button type="button" v-on:click="loadMore"
+			<button type="button" v-on:click="loadMore" name="loadMore"
 				class="btn btn-default btn-circle">
 				<i class="fa fa-chevron-down" aria-hidden="true"></i>
 			</button>
@@ -206,6 +206,16 @@
 				this.users = users;
 			});
     },
+		watch: {
+			users: function(users) {
+				var moreButton = $('button[name="loadMore"]');
+				if (users.length <= 10) {
+					moreButton.hide();
+				} else {
+					moreButton.show();
+				}
+			}
+		},
     methods: {
 
 			/**
