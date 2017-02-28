@@ -354,7 +354,6 @@
 					return;
 				}
 
-				return;
         axios.delete('/api/v1/users/', {
           data: { id: id }
         })

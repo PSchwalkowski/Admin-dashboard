@@ -12234,6 +12234,94 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	data: function data() {
@@ -12259,6 +12347,19 @@ module.exports = function spread(callback) {
 			return axios.get('/api/v1/roles').then(function (res) {
 				return res.data;
 			});
+		},
+
+		/**
+   * Get role record from local roles list
+   * @param  {number} id
+   * @return {object} role record
+   */
+		getRole: function getRole(id) {
+			var result = this.roles.filter(function (role) {
+				if (role.id == id) return role;
+			});
+
+			return result[0];
 		},
 
 		/**
@@ -12298,6 +12399,118 @@ module.exports = function spread(callback) {
 					$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
 				});
 			});
+		},
+
+		/**
+   * Fill edit form with role data
+   * @param {event} event DOM Event Object
+   * @return {void}
+   */
+		setRoleDataForEdit: function setRoleDataForEdit(event) {
+			var roleId = $(this.$parent.getTargetButtonFromEvent(event)).val();
+			var role = this.getRole(roleId);
+
+			var modal = $('#roles-edit');
+			$('.role-name', modal).text(role.display_name);
+			$('[name="name"]', modal).val(role.name);
+			$('[name="display_name"]', modal).val(role.display_name);
+			$('[name="description"]', modal).val(role.description);
+			$('[name="id"]', modal).val(role.id);
+		},
+
+		/**
+   * Edit role
+   * @param {event} event DOM Event Object
+   * @return {void}
+   */
+		editRole: function editRole(event) {
+			var _this3 = this;
+
+			event.preventDefault();
+
+			var modal = $('#roles-edit');
+			var errorsList = $('.alert ul', modal);
+			var formData = {
+				id: $('[name="id"]', modal).val(),
+				name: $('[name="name"]', modal).val(),
+				display_name: $('[name="display_name"]', modal).val(),
+				description: $('[name="description"]', modal).val()
+			};
+
+			axios.put('/api/v1/roles', formData).then(function (res) {
+				if (res.status == 200) {
+					errorsList.parent().addClass('hidden');
+					$('.form-group', modal).removeClass('has-error');
+
+					var role = _this3.getRole(res.data.id);
+
+					role.name = res.data.name;
+					role.display_name = res.data.display_name;
+					role.description = res.data.description;
+
+					modal.modal('hide');
+					$('form', modal).get(0).reset();
+				}
+			}).catch(function (error) {
+				$('.form-group', modal).removeClass('has-error');
+				errorsList.parent().removeClass('hidden');
+				errorsList.empty();
+
+				$.each(error.response.data, function (field, message) {
+					errorsList.append($('<li/>').text(message[0]));
+					$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
+				});
+			});
+		},
+
+		/**
+   * Set role id as value to button
+   * @param {event} event DOM Event Object
+   * @return {void}
+   */
+		setRoleIdForDelete: function setRoleIdForDelete(event) {
+			var id = $(this.$parent.getTargetButtonFromEvent(event)).val();
+			$('#roles-delete button[name="deleteRole"]').val(id);
+		},
+
+		/**
+   * Delete role
+   * @param {event} event DOM Event Object
+   * @return {void}
+   */
+		deleteRole: function deleteRole(event) {
+			var _this4 = this;
+
+			var id = parseInt($(this.$parent.getTargetButtonFromEvent(event)).val());
+
+			axios.delete('/api/v1/roles/', {
+				data: { id: id }
+			}).then(function (res) {
+				if (res.status === 204) {
+					_this4.roles = _this4.roles.filter(function (role, index) {
+						if (role.id !== id) return role;
+					});
+				}
+			}).catch(function (error) {
+				console.error(error);
+			});
+		},
+
+		/**
+   * Show more list items
+   * @param  {event} event DOM Event Object
+   * @return {void}
+   */
+		loadMore: function loadMore(event) {
+			var hiddenRoles = $('#roles-list tr:hidden');
+
+			hiddenRoles.slice(0, 10).each(function () {
+				$(this).fadeIn();
+			});
+
+			if (hiddenRoles.length < 10) {
+				$(this.$parent.getTargetButtonFromEvent(event)).hide();
+			}
 		}
 	}
 };
@@ -12672,7 +12885,6 @@ module.exports = function spread(callback) {
 				return;
 			}
 
-			return;
 			axios.delete('/api/v1/users/', {
 				data: { id: id }
 			}).then(function (res) {
@@ -32405,6 +32617,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "value": role.id,
         "data-toggle": "modal",
         "data-target": "#roles-edit"
+      },
+      on: {
+        "click": _vm.setRoleDataForEdit
       }
     }, [_c('i', {
       staticClass: "fa fa-pencil",
@@ -32415,10 +32630,12 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       staticClass: "btn btn-default btn-hover-danger btn-circle",
       attrs: {
         "type": "button",
-        "name": "role-delete",
         "value": role.id,
         "data-toggle": "modal",
         "data-target": "#roles-delete"
+      },
+      on: {
+        "click": _vm.setRoleIdForDelete
       }
     }, [_c('i', {
       staticClass: "fa fa-trash-o",
@@ -32426,7 +32643,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
         "aria-hidden": "true"
       }
     })])])])
-  }))])]), _vm._v(" "), _vm._m(1), _vm._v(" "), _c('div', {
+  }))])]), _vm._v(" "), _c('div', {
+    staticClass: "panel-footer text-center"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-circle",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.loadMore
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-chevron-down",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "roles-create",
@@ -32440,34 +32672,72 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_c('div', {
     staticClass: "modal-content"
-  }, [_vm._m(2), _vm._v(" "), _c('form', {
+  }, [_vm._m(1), _vm._v(" "), _c('form', {
     attrs: {
       "role": "form"
     },
     on: {
       "submit": _vm.createRole
     }
-  }, [_vm._m(3), _vm._v(" "), _vm._m(4)])])])])])
+  }, [_vm._m(2), _vm._v(" "), _vm._m(3)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "roles-edit",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(4), _vm._v(" "), _c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "submit": _vm.editRole
+    }
+  }, [_vm._m(5), _vm._v(" "), _vm._m(6)])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "roles-delete",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(7), _vm._v(" "), _vm._m(8), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-hover-danger btn-circle",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "name": "deleteRole"
+    },
+    on: {
+      "click": _vm.deleteRole
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-check",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _vm._m(9)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('thead', [_c('th', [_vm._v("ID")]), _vm._v(" "), _c('th', [_vm._v("Name")]), _vm._v(" "), _c('th', [_vm._v("Description")]), _vm._v(" "), _c('th', {
     attrs: {
       "width": "80px"
     }
   })])
-},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "panel-footer text-center"
-  }, [_c('button', {
-    staticClass: "btn btn-default btn-circle",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-chevron-down",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header"
@@ -32561,6 +32831,127 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })]), _vm._v(" "), _c('button', {
     staticClass: "btn btn-default btn-hover-success btn-circle",
     attrs: {
+      "type": "submit"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-check",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default btn-hover-warning btn-circle",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-times",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("Edit role: "), _c('span', {
+    staticClass: "role-name"
+  })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "alert alert-danger hidden"
+  }, [_c('ul')]), _vm._v(" "), _c('fieldset', [_c('div', {
+    staticClass: "form-hidden"
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "id"
+    }
+  })]), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "name",
+      "placeholder": "Name"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "display_name",
+      "placeholder": "Display name"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('textarea', {
+    staticClass: "form-control",
+    attrs: {
+      "name": "description",
+      "rows": "2",
+      "placeholder": "Description"
+    }
+  })])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-hover-info btn-circle pull-left",
+    attrs: {
+      "type": "reset"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-refresh",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default btn-hover-success btn-circle",
+    attrs: {
       "type": "submit",
       "name": "createUser"
     }
@@ -32581,6 +32972,42 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-hidden": "true"
     }
   })])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-header"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  }, [_vm._v("Confimation")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal-body"
+  }, [_c('p', {
+    staticClass: "text-danger"
+  }, [_vm._v("Are you really want to delete this role?")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
+    staticClass: "btn btn-default btn-hover-info btn-circle",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-times",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {

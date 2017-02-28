@@ -28,7 +28,7 @@ Route::group([
   Route::group(['prefix' => 'roles'], function() {
     Route::get('/', 'RoleController@getAll');
     Route::post('/', 'RoleController@create');
-    // Route::put('/', 'UserController@edit');
-    // Route::delete('/', 'UserController@delete');
+    Route::put('/', 'RoleController@edit');
+    Route::delete('/', 'RoleController@delete');
   });
 });

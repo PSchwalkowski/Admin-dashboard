@@ -33,7 +33,7 @@ class UserController extends Controller {
     ]);
 
 		if ($validator->fails()) {
-      return response()->json($validator->errors(), 400);
+      return response()->json($validator->errors(), 422);
     }
 
 		$User = User::create([
@@ -61,7 +61,7 @@ class UserController extends Controller {
 		]);
 
 		if ($validator->fails()) {
-      return response()->json($validator->errors(), 400);
+      return response()->json($validator->errors(), 422);
     }
 
 		$User = User::find($request->get('id'))->fill([
@@ -90,7 +90,7 @@ class UserController extends Controller {
     ]);
 
     if ($validator->fails()) {
-      return response()->json($validator->errors()->first('id'), 400);
+      return response()->json($validator->errors()->first('id'), 422);
     }
 
     User::destroy($request->get('id'));
