@@ -40,33 +40,10 @@
 		</div>
 
 		<!-- Modals -->
-    <div class="modal fade" id="users-delete" tabindex="-1" role="dialog">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <button type="button" class="close" data-dismiss="modal"
-              aria-label="Close"><span aria-hidden="true">&times;</span></button>
-            <h4 class="modal-title">Confimation</h4>
-          </div>
-          <div class="modal-body">
-            <p class="text-danger">Are you really want to delete this user?</p>
-          </div>
-          <div class="modal-footer">
-            <button type="button" data-dismiss="modal"
-              name="deleteUser" v-on:click="deleteUser"
-              class="btn btn-default btn-hover-danger btn-circle">
-              <i class="fa fa-check" aria-hidden="true"></i></button>
-            <button type="button" data-dismiss="modal"
-              class="btn btn-default btn-hover-info btn-circle">
-              <i class="fa fa-times" aria-hidden="true"></i></button>
-          </div>
-        </div>
-      </div>
-    </div>
     <div class="modal fade" id="users-create" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header modal-success">
             <button type="button" class="close" data-dismiss="modal"
               aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Create new user</h4>
@@ -127,7 +104,7 @@
     <div class="modal fade" id="users-edit" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header modal-primary">
             <button type="button" class="close" data-dismiss="modal"
               aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Edit user: <span class="user-name"></span></h4>
@@ -186,6 +163,29 @@
 	              <i class="fa fa-times" aria-hidden="true"></i></button>
 	          </div>
           </form>
+        </div>
+      </div>
+    </div>
+		<div class="modal fade" id="users-delete" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header modal-danger">
+            <button type="button" class="close" data-dismiss="modal"
+              aria-label="Close"><span aria-hidden="true">&times;</span></button>
+            <h4 class="modal-title">Confimation</h4>
+          </div>
+          <div class="modal-body">
+            <p class="text-danger">Are you really want to delete this user?</p>
+          </div>
+          <div class="modal-footer">
+            <button type="button" data-dismiss="modal"
+              name="deleteUser" v-on:click="deleteUser"
+              class="btn btn-default btn-hover-danger btn-circle">
+              <i class="fa fa-check" aria-hidden="true"></i></button>
+            <button type="button" data-dismiss="modal"
+              class="btn btn-default btn-hover-info btn-circle">
+              <i class="fa fa-times" aria-hidden="true"></i></button>
+          </div>
         </div>
       </div>
     </div>

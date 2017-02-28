@@ -43,7 +43,7 @@
 		<div class="modal fade" id="roles-create" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header modal-success">
             <button type="button" class="close" data-dismiss="modal"
               aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Create new role</h4>
@@ -104,7 +104,7 @@
 		<div class="modal fade" id="roles-edit" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header modal-primary">
             <button type="button" class="close" data-dismiss="modal"
               aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Edit role: <span class="role-name"></span></h4>
@@ -169,7 +169,7 @@
 		<div class="modal fade" id="roles-delete" tabindex="-1" role="dialog">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
-          <div class="modal-header">
+          <div class="modal-header modal-danger">
             <button type="button" class="close" data-dismiss="modal"
               aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title">Confimation</h4>

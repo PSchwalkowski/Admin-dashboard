@@ -76,3 +76,35 @@ button {
     width: 1.5em;
   }
 }
+
+.modal {
+	&-content {
+		overflow: hidden;
+	}
+
+	&-primary {
+		color: white;
+		background-color: rgba($brand-primary, .75);
+		border-color: $brand-primary-dark;
+	}
+	&-danger {
+		color: white;
+		background-color: rgba($brand-danger, .75);
+		border-color: $brand-danger-dark;
+	}
+	&-success {
+		color: white;
+		background-color: rgba($brand-success, .75);
+		border-color: $brand-success-dark;
+	}
+	&-info {
+		color: white;
+		background-color: rgba($brand-info, .75);
+		border-color: $brand-info-dark;
+	}
+	&-warning {
+		color: white;
+		background-color: rgba($brand-warning, .75);
+		border-color: $brand-warning-dark;
+	}
+}
