@@ -176,7 +176,7 @@
 										</div>
 										<select class="form-control" name="role">
 											<!-- TODO: Add selected! -->
-											<option v-for="role in roles" v-bind:value="role.id">
+											<option v-for="role in roles" v-bind:value="role.id" :selected="editUser.role == role.id">
 												{{role.display_name || role.name}}
 											</option>
 										</select>
@@ -231,6 +231,7 @@
     data() {
       return {
 				user: this.$parent.user,
+				editUser: {id: 0, role: 0},
         users: this.$parent.users,
 				roles: this.$parent.roles
       }
@@ -337,6 +338,8 @@
 				  var userId = $(this.$parent.getTargetButtonFromEvent(event)).val();
 					let user = this.getUser(userId);
 
+					this.editUser = user;
+
 					let modal = $('#users-edit');
 					$('.user-name', modal).text(user.name)
 					$('[name="name"]', modal).val(user.name);
@@ -375,6 +378,7 @@
 						user.name = res.data.name;
 						user.email = res.data.email;
 
+						this.editUser = {id: 0, role: 0};
 						modal.modal('hide');
 						$('form', modal).get(0).reset();
 					}

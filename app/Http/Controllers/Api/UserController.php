@@ -58,10 +58,9 @@ class UserController extends Controller {
       'id' => 'required|exists:users,id',
 	    'name' => 'required|unique:users,name,' . $request->get('id'),
       'email' => 'required|unique:users,email,' . $request->get('id'),
-			'password' => 'min:8'
-    ], [
-			'exists' => 'User with given id not exists'
-		]);
+			'password' => 'min:8',
+			'role' => 'required|exists:roles,id'
+    ]);
 
 		if ($validator->fails()) {
       return response()->json($validator->errors(), 422);
@@ -69,7 +68,8 @@ class UserController extends Controller {
 
 		$User = User::find($request->get('id'))->fill([
 			'name' => $request->get('name'),
-			'email' => $request->get('email')
+			'email' => $request->get('email'),
+			'role' => $request->get('role'),
 		]);
 
 		$User->save();

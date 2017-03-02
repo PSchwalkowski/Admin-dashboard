@@ -12766,6 +12766,7 @@ module.exports = function spread(callback) {
 	data: function data() {
 		return {
 			user: this.$parent.user,
+			editUser: { id: 0, role: 0 },
 			users: this.$parent.users,
 			roles: this.$parent.roles
 		};
@@ -12876,6 +12877,8 @@ module.exports = function spread(callback) {
 			var userId = $(this.$parent.getTargetButtonFromEvent(event)).val();
 			var user = this.getUser(userId);
 
+			this.editUser = user;
+
 			var modal = $('#users-edit');
 			$('.user-name', modal).text(user.name);
 			$('[name="name"]', modal).val(user.name);
@@ -12916,6 +12919,7 @@ module.exports = function spread(callback) {
 					user.name = res.data.name;
 					user.email = res.data.email;
 
+					_this3.editUser = { id: 0, role: 0 };
 					modal.modal('hide');
 					$('form', modal).get(0).reset();
 				}
@@ -33243,7 +33247,8 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, _vm._l((_vm.roles), function(role) {
     return _c('option', {
       domProps: {
-        "value": role.id
+        "value": role.id,
+        "selected": _vm.editUser.role == role.id
       }
     }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(role.display_name || role.name) + "\n\t\t\t\t\t\t\t\t\t\t\t")])
   }))])])])]), _vm._v(" "), _vm._m(15)])])])]), _vm._v(" "), _c('div', {
