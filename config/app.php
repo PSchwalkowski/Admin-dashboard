@@ -169,6 +169,7 @@ return [
         Laravel\Tinker\TinkerServiceProvider::class,
         Collective\Html\HtmlServiceProvider::class,
 				Zizaco\Entrust\EntrustServiceProvider::class,
+				PS\Media\MediaServiceProvider::class,
 
         /*
          * Application Service Providers...
