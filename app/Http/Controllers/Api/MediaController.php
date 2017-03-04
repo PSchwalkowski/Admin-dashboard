@@ -36,7 +36,6 @@ class MediaController extends Controller {
 			'mime_type' => $request->file->getClientMimeType()
 		]);
 
-
 		return response()->json($File, 201);
 	}
 

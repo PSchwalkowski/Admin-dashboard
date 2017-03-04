@@ -15,7 +15,7 @@
           </div>
           <form role="form" enctype="multipart/form-data" v-on:submit="uploadFiles">
 						<div class="modal-body">
-							<div class="alert alert-danger hidden">
+							<div class="alert alert-danger" style="display: none;">
 								<ul></ul>
 							</div>
 
@@ -56,14 +56,28 @@
 			}
 		},
 		methods: {
+
+			/**
+			 * Add dragover class to wrapper
+			 * @param  {event} event DOM Event Object
+			 * @return {void}
+			 */
 			addDragClass: function(event) {
 				$(event.target).parent().addClass('dragover');
 			},
 
+			/**
+			 * Remove dragove class from wrapper
+			 * @param  {event} event DOM Event Object
+			 * @return {void}
+			 */
 			removeDragClass: function(event) {
 				$(event.target).parent().removeClass('dragover');
 			},
 
+			/**
+			 * Reset upload form
+			 */
 			resetUploadForm: function() {
 				const modal = $('#media-create');
 				const filesList = $('.media-upload-files-list', modal);
@@ -74,6 +88,11 @@
 				}, 500);
 			},
 
+			/**
+			 * Display progressbars
+			 * @param  {event} event DOM Event Object
+			 * @return {void}
+			 */
 			processUploadFilesSelect: function(event) {
 				const files = event.target.files;
 				const modal = $('#media-create');
@@ -93,6 +112,11 @@
 				});
 			},
 
+			/**
+			 * Process upload
+			 * @param  {event} event DOM Event Object
+			 * @return {void}
+			 */
 			uploadFiles: function(event) {
 				event.preventDefault();
 
@@ -123,10 +147,22 @@
 								progressBar.removeClass('active progress-bar-striped');
 							}
 						}
-					}).then(res => {
+					})
+					.then(res => {
 						if (res.status == 201) {
 							this.files.push(res.data);
 							progressBar.addClass('progress-bar-success');
+						}
+					})
+					.catch(error => {
+						const errorsList = $('.alert ul', modal);
+
+						if (errorsList.parent().is(':hidden')) {
+							errorsList
+								.append($('<li/>').text('Something went wrong... try again later.'))
+								.parent().slideDown();
+
+							progressBar.addClass('progress-bar-danger');
 						}
 					});
 				});

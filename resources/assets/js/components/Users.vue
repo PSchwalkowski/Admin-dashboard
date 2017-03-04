@@ -50,7 +50,7 @@
           </div>
           <form role="form" v-on:submit="createUser">
 						<div class="modal-body">
-							<div class="alert alert-danger hidden">
+							<div class="alert alert-danger" style="display: none;">
 								<ul></ul>
 							</div>
 
@@ -127,7 +127,7 @@
           </div>
           <form role="form" v-on:submit="editUser">
 						<div class="modal-body">
-							<div class="alert alert-danger hidden">
+							<div class="alert alert-danger" style="display: none;">
 								<ul></ul>
 							</div>
 
@@ -309,7 +309,7 @@
 
 				axios.post('/api/v1/users', formData).then(res => {
 					if (res.status == 201) {
-						errorsList.parent().addClass('hidden');
+						errorsList.parent().slideUp();
 						$('.form-group', modal).removeClass('has-error');
 
 						this.users.push(res.data);
@@ -319,13 +319,14 @@
 				})
 				.catch(error => {
 					$('.form-group', modal).removeClass('has-error');
-					errorsList.parent().removeClass('hidden');
 					errorsList.empty();
 
 					$.each(error.response.data, function(field, message) {
 						errorsList.append($('<li/>').text(message[0]));
 						$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
 					});
+
+					errorsList.parent().slideDown();
 				});
 			},
 
@@ -370,7 +371,7 @@
 
 				axios.put('/api/v1/users', formData).then(res => {
 					if (res.status == 200) {
-						errorsList.parent().addClass('hidden');
+						errorsList.parent().slideUp();
 						$('.form-group', modal).removeClass('has-error');
 
 						let user = this.getUser(res.data.id);
@@ -385,13 +386,14 @@
 				})
 				.catch(error => {
 					$('.form-group', modal).removeClass('has-error');
-					errorsList.parent().removeClass('hidden');
 					errorsList.empty();
 
 					$.each(error.response.data, function(field, message) {
 						errorsList.append($('<li/>').text(message[0]));
 						$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
 					});
+
+					errorsList.parent().slideDown();
 				});
 			},
 

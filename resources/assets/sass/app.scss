@@ -28,9 +28,7 @@
 }
 
 .nav li a {
-  transition: ease-in-out background-color .3s, ease-in-out border-color .3s;
-
-  &:hover {
+  &, &:hover {
     transition: ease-in-out background-color .3s, ease-in-out border-color .3s;
   }
 }
@@ -144,7 +142,7 @@ button {
 
 	&.active span,
 	span {
-	@include sb-transition(color);
+		@include sb-transition(color);
 	}
 
 	&.active span {

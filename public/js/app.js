@@ -12190,14 +12190,28 @@ module.exports = function spread(callback) {
 	},
 
 	methods: {
+
+		/**
+   * Add dragover class to wrapper
+   * @param  {event} event DOM Event Object
+   * @return {void}
+   */
 		addDragClass: function addDragClass(event) {
 			$(event.target).parent().addClass('dragover');
 		},
 
+		/**
+   * Remove dragove class from wrapper
+   * @param  {event} event DOM Event Object
+   * @return {void}
+   */
 		removeDragClass: function removeDragClass(event) {
 			$(event.target).parent().removeClass('dragover');
 		},
 
+		/**
+   * Reset upload form
+   */
 		resetUploadForm: function resetUploadForm() {
 			var modal = $('#media-create');
 			var filesList = $('.media-upload-files-list', modal);
@@ -12208,6 +12222,11 @@ module.exports = function spread(callback) {
 			}, 500);
 		},
 
+		/**
+   * Display progressbars
+   * @param  {event} event DOM Event Object
+   * @return {void}
+   */
 		processUploadFilesSelect: function processUploadFilesSelect(event) {
 			var files = event.target.files;
 			var modal = $('#media-create');
@@ -12221,6 +12240,11 @@ module.exports = function spread(callback) {
 			});
 		},
 
+		/**
+   * Process upload
+   * @param  {event} event DOM Event Object
+   * @return {void}
+   */
 		uploadFiles: function uploadFiles(event) {
 			var _this = this;
 
@@ -12257,6 +12281,14 @@ module.exports = function spread(callback) {
 					if (res.status == 201) {
 						_this.files.push(res.data);
 						progressBar.addClass('progress-bar-success');
+					}
+				}).catch(function (error) {
+					var errorsList = $('.alert ul', modal);
+
+					if (errorsList.parent().is(':hidden')) {
+						errorsList.append($('<li/>').text('Something went wrong... try again later.')).parent().slideDown();
+
+						progressBar.addClass('progress-bar-danger');
 					}
 				});
 			});
@@ -12535,7 +12567,7 @@ module.exports = function spread(callback) {
 
 			axios.post('/api/v1/roles', formData).then(function (res) {
 				if (res.status == 201) {
-					errorsList.parent().addClass('hidden');
+					errorsList.parent().slideUp();
 					$('.form-group', modal).removeClass('has-error');
 
 					_this2.roles.push(res.data);
@@ -12544,13 +12576,14 @@ module.exports = function spread(callback) {
 				}
 			}).catch(function (error) {
 				$('.form-group', modal).removeClass('has-error');
-				errorsList.parent().removeClass('hidden');
 				errorsList.empty();
 
 				$.each(error.response.data, function (field, message) {
 					errorsList.append($('<li/>').text(message[0]));
 					$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
 				});
+
+				errorsList.parent().slideDown('hidden');
 			});
 		},
 
@@ -12592,7 +12625,7 @@ module.exports = function spread(callback) {
 
 			axios.put('/api/v1/roles', formData).then(function (res) {
 				if (res.status == 200) {
-					errorsList.parent().addClass('hidden');
+					errorsList.parent().slideUp();
 					$('.form-group', modal).removeClass('has-error');
 
 					var role = _this3.getRole(res.data.id);
@@ -12606,13 +12639,14 @@ module.exports = function spread(callback) {
 				}
 			}).catch(function (error) {
 				$('.form-group', modal).removeClass('has-error');
-				errorsList.parent().removeClass('hidden');
 				errorsList.empty();
 
 				$.each(error.response.data, function (field, message) {
 					errorsList.append($('<li/>').text(message[0]));
 					$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
 				});
+
+				errorsList.parent().slideDown();
 			});
 		},
 
@@ -12991,7 +13025,7 @@ module.exports = function spread(callback) {
 
 			axios.post('/api/v1/users', formData).then(function (res) {
 				if (res.status == 201) {
-					errorsList.parent().addClass('hidden');
+					errorsList.parent().slideUp();
 					$('.form-group', modal).removeClass('has-error');
 
 					_this2.users.push(res.data);
@@ -13000,13 +13034,14 @@ module.exports = function spread(callback) {
 				}
 			}).catch(function (error) {
 				$('.form-group', modal).removeClass('has-error');
-				errorsList.parent().removeClass('hidden');
 				errorsList.empty();
 
 				$.each(error.response.data, function (field, message) {
 					errorsList.append($('<li/>').text(message[0]));
 					$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
 				});
+
+				errorsList.parent().slideDown();
 			});
 		},
 
@@ -13053,7 +13088,7 @@ module.exports = function spread(callback) {
 
 			axios.put('/api/v1/users', formData).then(function (res) {
 				if (res.status == 200) {
-					errorsList.parent().addClass('hidden');
+					errorsList.parent().slideUp();
 					$('.form-group', modal).removeClass('has-error');
 
 					var user = _this3.getUser(res.data.id);
@@ -13067,13 +13102,14 @@ module.exports = function spread(callback) {
 				}
 			}).catch(function (error) {
 				$('.form-group', modal).removeClass('has-error');
-				errorsList.parent().removeClass('hidden');
 				errorsList.empty();
 
 				$.each(error.response.data, function (field, message) {
 					errorsList.append($('<li/>').text(message[0]));
 					$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
 				});
+
+				errorsList.parent().slideDown();
 			});
 		},
 
@@ -33010,7 +33046,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "modal-body"
   }, [_c('div', {
-    staticClass: "alert alert-danger hidden"
+    staticClass: "alert alert-danger",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('ul')]), _vm._v(" "), _c('fieldset', [_c('div', {
     staticClass: "form-group has-feedback"
   }, [_c('div', {
@@ -33124,7 +33163,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   return _c('div', {
     staticClass: "modal-body"
   }, [_c('div', {
-    staticClass: "alert alert-danger hidden"
+    staticClass: "alert alert-danger",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('ul')]), _vm._v(" "), _c('fieldset', [_c('div', {
     staticClass: "form-hidden"
   }, [_c('input', {
@@ -33484,7 +33526,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Create new user")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "alert alert-danger hidden"
+    staticClass: "alert alert-danger",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('ul')])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -33612,7 +33657,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "alert alert-danger hidden"
+    staticClass: "alert alert-danger",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('ul')])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
@@ -33863,7 +33911,10 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_vm._v("Click or drag and drop files on area.")])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "alert alert-danger hidden"
+    staticClass: "alert alert-danger",
+    staticStyle: {
+      "display": "none"
+    }
   }, [_c('ul')])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('button', {
