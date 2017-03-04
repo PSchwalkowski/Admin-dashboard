@@ -10,3 +10,5 @@ Homestead.yaml
 
 yarn.lock
 *.log
+
+/packages
