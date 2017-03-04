@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 class RoleController extends Controller {
 
   /**
-   * Show users list.
+   * Show roles list.
    *
    * @return \Illuminate\Http\Response
    */

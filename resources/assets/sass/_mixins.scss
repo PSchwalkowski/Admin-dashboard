@@ -9,3 +9,7 @@
     clear: both;
   }
 }
+
+@mixin sb-transition($property, $duration: .3s, $function: ease-in-out) {
+	transition: $function $duration $property;
+}

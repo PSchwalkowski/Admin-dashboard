@@ -4,6 +4,7 @@ require('../../../node_modules/metismenu/dist/metisMenu.min.js');
 
 Vue.component('users', require('./components/Users.vue'));
 Vue.component('roles', require('./components/Roles.vue'));
+Vue.component('media', require('./components/Media.vue'));
 
 // Create Vue instance
 const app = new Vue({
@@ -11,7 +12,8 @@ const app = new Vue({
   data: {
 		user: {},
     users: [],
-    roles: []
+    roles: [],
+		files: []
   },
 	created: function() {
 		this.user = currentUser;

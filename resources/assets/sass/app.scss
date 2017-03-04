@@ -6,9 +6,11 @@
 @import "variables";
 @import "mixins";
 
-// Bootstrap
+// Vendors
 @import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 @import "node_modules/font-awesome/scss/font-awesome";
+
+// SB-Admin 2 styles
 @import "sb-admin-2";
 
 .navbar {
@@ -106,5 +108,52 @@ button {
 		color: white;
 		background-color: rgba($brand-warning, .75);
 		border-color: $brand-warning-dark;
+	}
+}
+
+.page-header {
+	margin-top: 0;
+}
+
+.media-upload-area {
+	border: 1px dashed $media-upload-area-border-color;
+
+	&, &.dragover {
+		transition: ease-in-out .3s border-color, ease-in-out .3s background-color;
+	}
+
+	&.dragover {
+		border-color: $brand-success-dark;
+		background-color: rgba($brand-success, .25);
+	}
+
+	&.has-error {
+		border-color: $brand-danger-dark;
+		background-color: rgba($brand-danger, .25);
+	}
+
+	input[type="file"] {
+		opacity: 0;
+		height: 200px;
+	}
+}
+
+.progress-bar {
+	text-align: left;
+	@include sb-transition(background-color);
+
+	&.active span,
+	span {
+	@include sb-transition(color);
+	}
+
+	&.active span {
+		color: $text-color;
+	}
+
+	span {
+		position: absolute;
+		display: inline-block;
+		padding: 0 1em;
 	}
 }

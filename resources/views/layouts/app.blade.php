@@ -158,6 +158,9 @@
                     <li><a href="{{ route('roles.index') }}">Roles</a></li>
                   </ul>
                 </li>
+                <li><a href="{{ route('media.index') }}">
+                  <i class="fa fa-folder-open-o fa-fw"></i> Media library
+                </a></li>
               </ul>
             </div>
           </div>

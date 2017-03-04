@@ -31,4 +31,11 @@ Route::group([
     Route::put('/', 'RoleController@edit');
     Route::delete('/', 'RoleController@delete');
   });
+
+  Route::group(['prefix' => 'media'], function() {
+    // Route::get('/', 'MediaController@getAll');
+    Route::post('/', 'MediaController@create');
+    // Route::put('/', 'MediaController@edit');
+    // Route::delete('/', 'MediaController@delete');
+  });
 });
