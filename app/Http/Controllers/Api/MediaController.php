@@ -11,6 +11,15 @@ use App\Models\Media;
 class MediaController extends Controller {
 
 	/**
+   * Get all roles
+   * @method getAll
+   * @return Illuminate\Http\Response
+   */
+  public function getAll() {
+    return response()->json(Media::get());
+  }
+
+	/**
 	 * Create file
 	 * @param  Request $request
 	 * @return Illuminate\Http\Response

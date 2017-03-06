@@ -1,8 +1,42 @@
 <template>
 	<div class="panel panel-default">
 		<div class="panel-heading"></div>
-		<div class="panel-body"></div>
-		<div class="panel-footer"></div>
+		<div class="panel-body">
+			<div class="media-list">
+				<div class="col-xs-12 col-sm-2 media-item" v-for="(file, index) in files"
+					v-bind:style="index > 17 ? {display: 'none'} : {}">
+					<a href="#">
+						<img v-if="file.type == 'image'"
+							v-bind:src="file.url" v-bind:alt="file.alt"
+							v-bind:title="file.title || file.name">
+
+						<i class="fa fa-file-audio-o" v-if="file.type == 'audio'"
+							v-bind:src="file.url" v-bind:alt="file.alt"
+							v-bind:title="file.title || file.name"></i>
+
+						<i class="fa fa-file-archive-o" v-if="file.type == 'archive'"
+							v-bind:src="file.url" v-bind:alt="file.alt"
+							v-bind:title="file.title || file.name"></i>
+
+						<i class="fa fa-file-text-o" v-if="file.type == 'document'"
+							v-bind:src="file.url" v-bind:alt="file.alt"
+							v-bind:title="file.title || file.name"></i>
+
+						<i class="fa fa-file-o" v-if="file.type == 'other'"
+							v-bind:src="file.url" v-bind:alt="file.alt"
+							v-bind:title="file.title || file.name"></i>
+
+					</a>
+				</div>
+			</div>
+		</div>
+
+		<div class="panel-footer text-center">
+			<button type="button" v-on:click="loadMore" name="loadMore"
+				class="btn btn-default btn-circle">
+				<i class="fa fa-chevron-down" aria-hidden="true"></i>
+			</button>
+		</div>
 
 		<!-- Modals -->
 		<div class="modal fade" id="media-create" tabindex="-1" role="dialog">
@@ -53,6 +87,21 @@
 		data() {
 			return {
 				files: this.$parent.files
+			}
+		},
+		created: function() {
+			this.getFiles().then(files => {
+				this.files = files;
+			});
+		},
+		watch: {
+			files: function(files) {
+				var moreButton = $('button[name="loadMore"]');
+				if (files.length <= 10) {
+					moreButton.hide();
+				} else {
+					moreButton.show();
+				}
 			}
 		},
 		methods: {
@@ -166,6 +215,29 @@
 						}
 					});
 				});
+			},
+
+			getFiles: function() {
+				return axios.get('/api/v1/media').then(res => {
+					return res.data;
+				});
+			},
+
+			/**
+			 * Show more list items
+			 * @param  {event} event DOM Event Object
+			 * @return {void}
+			 */
+			loadMore: function(event) {
+				var hiddenItems = $('.media-list .media-item:hidden');
+
+				hiddenItems.slice(0, 6).each(function() {
+					$(this).fadeIn();
+				});
+
+				if (hiddenItems.length < 6) {
+					$(this.$parent.getTargetButtonFromEvent(event)).hide();
+				}
 			}
 		}
 	}

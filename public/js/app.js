@@ -12181,6 +12181,40 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	data: function data() {
@@ -12189,6 +12223,23 @@ module.exports = function spread(callback) {
 		};
 	},
 
+	created: function created() {
+		var _this = this;
+
+		this.getFiles().then(function (files) {
+			_this.files = files;
+		});
+	},
+	watch: {
+		files: function files(_files) {
+			var moreButton = $('button[name="loadMore"]');
+			if (_files.length <= 10) {
+				moreButton.hide();
+			} else {
+				moreButton.show();
+			}
+		}
+	},
 	methods: {
 
 		/**
@@ -12246,7 +12297,7 @@ module.exports = function spread(callback) {
    * @return {void}
    */
 		uploadFiles: function uploadFiles(event) {
-			var _this = this;
+			var _this2 = this;
 
 			event.preventDefault();
 
@@ -12279,7 +12330,7 @@ module.exports = function spread(callback) {
 					}
 				}).then(function (res) {
 					if (res.status == 201) {
-						_this.files.push(res.data);
+						_this2.files.push(res.data);
 						progressBar.addClass('progress-bar-success');
 					}
 				}).catch(function (error) {
@@ -12292,6 +12343,29 @@ module.exports = function spread(callback) {
 					}
 				});
 			});
+		},
+
+		getFiles: function getFiles() {
+			return axios.get('/api/v1/media').then(function (res) {
+				return res.data;
+			});
+		},
+
+		/**
+   * Show more list items
+   * @param  {event} event DOM Event Object
+   * @return {void}
+   */
+		loadMore: function loadMore(event) {
+			var hiddenItems = $('.media-list .media-item:hidden');
+
+			hiddenItems.slice(0, 6).each(function () {
+				$(this).fadeIn();
+			});
+
+			if (hiddenItems.length < 6) {
+				$(this.$parent.getTargetButtonFromEvent(event)).hide();
+			}
 		}
 	}
 };
@@ -33832,9 +33906,70 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     staticClass: "panel-heading"
   }), _vm._v(" "), _c('div', {
     staticClass: "panel-body"
-  }), _vm._v(" "), _c('div', {
-    staticClass: "panel-footer"
-  }), _vm._v(" "), _c('div', {
+  }, [_c('div', {
+    staticClass: "media-list"
+  }, _vm._l((_vm.files), function(file, index) {
+    return _c('div', {
+      staticClass: "col-xs-12 col-sm-2 media-item",
+      style: (index > 17 ? {
+        display: 'none'
+      } : {})
+    }, [_c('a', {
+      attrs: {
+        "href": "#"
+      }
+    }, [(file.type == 'image') ? _c('img', {
+      attrs: {
+        "src": file.url,
+        "alt": file.alt,
+        "title": file.title || file.name
+      }
+    }) : _vm._e(), _vm._v(" "), (file.type == 'audio') ? _c('i', {
+      staticClass: "fa fa-file-audio-o",
+      attrs: {
+        "src": file.url,
+        "alt": file.alt,
+        "title": file.title || file.name
+      }
+    }) : _vm._e(), _vm._v(" "), (file.type == 'archive') ? _c('i', {
+      staticClass: "fa fa-file-archive-o",
+      attrs: {
+        "src": file.url,
+        "alt": file.alt,
+        "title": file.title || file.name
+      }
+    }) : _vm._e(), _vm._v(" "), (file.type == 'document') ? _c('i', {
+      staticClass: "fa fa-file-text-o",
+      attrs: {
+        "src": file.url,
+        "alt": file.alt,
+        "title": file.title || file.name
+      }
+    }) : _vm._e(), _vm._v(" "), (file.type == 'other') ? _c('i', {
+      staticClass: "fa fa-file-o",
+      attrs: {
+        "src": file.url,
+        "alt": file.alt,
+        "title": file.title || file.name
+      }
+    }) : _vm._e()])])
+  }))]), _vm._v(" "), _c('div', {
+    staticClass: "panel-footer text-center"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-circle",
+    attrs: {
+      "type": "button",
+      "name": "loadMore"
+    },
+    on: {
+      "click": _vm.loadMore
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-chevron-down",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])]), _vm._v(" "), _c('div', {
     staticClass: "modal fade",
     attrs: {
       "id": "media-create",

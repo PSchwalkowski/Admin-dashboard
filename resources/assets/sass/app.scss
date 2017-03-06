@@ -155,3 +155,41 @@ button {
 		padding: 0 1em;
 	}
 }
+
+.media {
+
+	&-item {
+		text-align: center;
+		font-size: 4em;
+		line-height: 1;
+		margin-bottom: .5em;
+		padding: .25em;
+		border: 1px solid transparent;
+
+		@media (min-width: $screen-sm-min) {
+			height: 100px;
+		}
+
+		&:hover {
+			border-color: $media-item-border-color;
+		}
+
+		a {
+			display: inline-block;
+			position: relative;
+			height: 100%;
+			width: 100%;
+			overflow: hidden;
+
+			img {
+				@include img-responsive();
+
+				@media (min-width: $screen-sm-min) {
+					height: 100%;
+					width: auto;
+					max-width: none;
+				}
+			}
+		}
+	}
+}
