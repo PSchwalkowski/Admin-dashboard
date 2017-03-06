@@ -12219,7 +12219,8 @@ module.exports = function spread(callback) {
 /* harmony default export */ __webpack_exports__["default"] = {
 	data: function data() {
 		return {
-			files: this.$parent.files
+			files: this.$parent.files,
+			uploadedFiles: 0
 		};
 	},
 
@@ -12326,12 +12327,21 @@ module.exports = function spread(callback) {
 
 						if (total == 100) {
 							progressBar.removeClass('active progress-bar-striped');
+							_this2.uploadedFiles++;
 						}
 					}
 				}).then(function (res) {
 					if (res.status == 201) {
 						_this2.files.push(res.data);
 						progressBar.addClass('progress-bar-success');
+
+						if (_this2.uploadedFiles == files.length) {
+							setTimeout(function () {
+								_this2.resetUploadForm();
+							}, 2000);
+
+							_this2.uploadedFiles = 0;
+						}
 					}
 				}).catch(function (error) {
 					var errorsList = $('.alert ul', modal);
@@ -12345,6 +12355,10 @@ module.exports = function spread(callback) {
 			});
 		},
 
+		/**
+   * Get files from API
+   * @return {Promise}
+   */
 		getFiles: function getFiles() {
 			return axios.get('/api/v1/media').then(function (res) {
 				return res.data;

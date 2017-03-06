@@ -86,7 +86,8 @@
 	export default {
 		data() {
 			return {
-				files: this.$parent.files
+				files: this.$parent.files,
+				uploadedFiles: 0
 			}
 		},
 		created: function() {
@@ -194,6 +195,7 @@
 
 							if (total == 100) {
 								progressBar.removeClass('active progress-bar-striped');
+								this.uploadedFiles++;
 							}
 						}
 					})
@@ -201,6 +203,14 @@
 						if (res.status == 201) {
 							this.files.push(res.data);
 							progressBar.addClass('progress-bar-success');
+
+							if (this.uploadedFiles == files.length) {
+								setTimeout(() => {
+									this.resetUploadForm();
+								}, 2000);
+
+								this.uploadedFiles = 0;
+							}
 						}
 					})
 					.catch(error => {
@@ -217,6 +227,10 @@
 				});
 			},
 
+			/**
+			 * Get files from API
+			 * @return {Promise}
+			 */
 			getFiles: function() {
 				return axios.get('/api/v1/media').then(res => {
 					return res.data;
