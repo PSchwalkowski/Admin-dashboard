@@ -31,6 +31,6 @@ Route::group([
     Route::get('/', 'MediaController@getAll');
     Route::post('/', 'MediaController@create');
     Route::put('/', 'MediaController@edit');
-    // Route::delete('/', 'MediaController@delete');
+    Route::delete('/', 'MediaController@delete');
   });
 });

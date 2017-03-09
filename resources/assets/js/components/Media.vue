@@ -144,7 +144,7 @@
 							</div>
 	          </div>
 	          <div class="modal-footer">
-							<button type="button"
+							<button type="button" v-on:click="removeMedia"
 	              class="btn btn-default btn-hover-danger btn-circle pull-left">
 	              <i class="fa fa-trash-o" aria-hidden="true"></i></button>
 							<button type="submit"
@@ -177,6 +177,7 @@
 		watch: {
 			files: function(files) {
 				var moreButton = $('button[name="loadMore"]');
+
 				if (files.length <= 10) {
 					moreButton.hide();
 				} else {
@@ -419,6 +420,32 @@
 					});
 
 					errorsList.parent().slideDown();
+				});
+			},
+
+			/**
+			 * Delete media file
+			 * @param {event} event DOM Event Object
+			 * @return {void}
+			 */
+			removeMedia: function(event) {
+				const modal = $('#media-edit');
+				const id = parseInt($('[name="id"]', modal).val());
+
+				axios.delete('/api/v1/media/', {
+					data: { id: id }
+				})
+				.then(res => {
+					if (res.status === 204) {
+						this.files = this.files.filter((file, index) => {
+							if (file.id !== id) return file;
+						});
+
+						modal.modal('hide');
+					}
+				})
+				.catch(error => {
+					console.error(error);
 				});
 			}
 		}

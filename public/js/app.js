@@ -12312,6 +12312,7 @@ module.exports = function spread(callback) {
 	watch: {
 		files: function files(_files) {
 			var moreButton = $('button[name="loadMore"]');
+
 			if (_files.length <= 10) {
 				moreButton.hide();
 			} else {
@@ -12544,6 +12545,32 @@ module.exports = function spread(callback) {
 				});
 
 				errorsList.parent().slideDown();
+			});
+		},
+
+		/**
+   * Delete media file
+   * @param {event} event DOM Event Object
+   * @return {void}
+   */
+		removeMedia: function removeMedia(event) {
+			var _this4 = this;
+
+			var modal = $('#media-edit');
+			var id = parseInt($('[name="id"]', modal).val());
+
+			axios.delete('/api/v1/media/', {
+				data: { id: id }
+			}).then(function (res) {
+				if (res.status === 204) {
+					_this4.files = _this4.files.filter(function (file, index) {
+						if (file.id !== id) return file;
+					});
+
+					modal.modal('hide');
+				}
+			}).catch(function (error) {
+				console.error(error);
 			});
 		}
 	}
@@ -34233,7 +34260,22 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     on: {
       "submit": _vm.editFile
     }
-  }, [_vm._m(5), _vm._v(" "), _vm._m(6)])])])])])
+  }, [_vm._m(5), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-hover-danger btn-circle pull-left",
+    attrs: {
+      "type": "button"
+    },
+    on: {
+      "click": _vm.removeMedia
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-trash-o",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _vm._m(6), _vm._v(" "), _vm._m(7)])])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header modal-success"
@@ -34404,19 +34446,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   })])])])])])])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
-  return _c('div', {
-    staticClass: "modal-footer"
-  }, [_c('button', {
-    staticClass: "btn btn-default btn-hover-danger btn-circle pull-left",
-    attrs: {
-      "type": "button"
-    }
-  }, [_c('i', {
-    staticClass: "fa fa-trash-o",
-    attrs: {
-      "aria-hidden": "true"
-    }
-  })]), _vm._v(" "), _c('button', {
+  return _c('button', {
     staticClass: "btn btn-default btn-hover-success btn-circle",
     attrs: {
       "type": "submit"
@@ -34426,7 +34456,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _c('button', {
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('button', {
     staticClass: "btn btn-default btn-hover-warning btn-circle",
     attrs: {
       "type": "button",
@@ -34437,7 +34469,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })])])
+  })])
 }]}
 module.exports.render._withStripped = true
 if (false) {

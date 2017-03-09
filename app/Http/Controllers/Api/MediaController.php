@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Api;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
+use Illuminate\Support\Facades\Storage;
+
 use Validator;
 use App\Models\Media;
 
@@ -71,5 +73,28 @@ class MediaController extends Controller {
 
 		return response()->json($Media, 200);
 	}
+
+	/**
+   * Delete file
+   * @method delete
+   * @param  Request $request
+   * @return Illuminate\Http\Response
+   */
+  public function delete(Request $request) {
+    $validator = Validator::make($request->all(), [
+      'id' => 'required|exists:media'
+    ]);
+
+    if ($validator->fails()) {
+      return response()->json($validator->errors()->first('id'), 409);
+    }
+
+    $Media = Media::find($request->get('id'));
+
+		Storage::delete($Media->path);
+		$Media->delete();
+
+    return response()->json(null, 204);
+  }
 
 }
