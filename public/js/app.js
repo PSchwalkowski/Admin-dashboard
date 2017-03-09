@@ -11235,7 +11235,7 @@ module.exports = g;
 /* 11 */
 /***/ (function(module, exports, __webpack_require__) {
 
-/* WEBPACK VAR INJECTION */(function($) {
+
 __webpack_require__(34);
 __webpack_require__(38);
 
@@ -11264,9 +11264,9 @@ var app = new Vue({
      * @return {object} DOM Element
      */
     getTargetButtonFromEvent: function getTargetButtonFromEvent(event) {
-      var button = $(event.target).get(0);
+      var button = event.target;
 
-      if (button.tagName === 'I') button = $(button).parent().get(0);
+      if (button.tagName === 'I') button = button.parentNode;
 
       return button;
     }
@@ -11276,7 +11276,6 @@ var app = new Vue({
 __webpack_require__(35);
 
 // TODO: Notifications!
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
 
 /***/ }),
 /* 12 */
@@ -12215,6 +12214,81 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	data: function data() {
@@ -12366,6 +12440,19 @@ module.exports = function spread(callback) {
 		},
 
 		/**
+   * Get media record from local media list
+   * @param  {number} id
+   * @return {object} media record
+   */
+		getFile: function getFile(id) {
+			var result = this.files.filter(function (file) {
+				if (file.id == id) return file;
+			});
+
+			return result[0];
+		},
+
+		/**
    * Show more list items
    * @param  {event} event DOM Event Object
    * @return {void}
@@ -12379,6 +12466,27 @@ module.exports = function spread(callback) {
 
 			if (hiddenItems.length < 6) {
 				$(this.$parent.getTargetButtonFromEvent(event)).hide();
+			}
+		},
+
+		setMediaDataForEdit: function setMediaDataForEdit(event) {
+			event.preventDefault();
+			var modal = $('#media-edit');
+			var target = event.target;
+
+			if (target.tagName != 'A') {
+				target = target.parentNode;
+			}
+
+			var media = this.getFile(target.getAttribute('data-id'));
+
+			$('.modal-title', modal).text(media.name);
+
+			$('[data-type]', modal).hide();
+			$('[data-type="' + media.type + '"]', modal).show();
+
+			if (media.type == 'image') {
+				$('[data-type="' + media.type + '"]', modal).attr('src', media.url).attr('title', media.title || media.name).attr('alt', media.alt);
 			}
 		}
 	}
@@ -13030,7 +13138,7 @@ module.exports = function spread(callback) {
 	data: function data() {
 		return {
 			user: this.$parent.user,
-			editUser: { id: 0, role: 0 },
+			editingUser: { id: 0, role: 0 },
 			users: this.$parent.users,
 			roles: this.$parent.roles
 		};
@@ -13142,7 +13250,7 @@ module.exports = function spread(callback) {
 			var userId = $(this.$parent.getTargetButtonFromEvent(event)).val();
 			var user = this.getUser(userId);
 
-			this.editUser = user;
+			this.editingUser = user;
 
 			var modal = $('#users-edit');
 			$('.user-name', modal).text(user.name);
@@ -13167,7 +13275,8 @@ module.exports = function spread(callback) {
 			var formData = {
 				id: $('[name="id"]', modal).val(),
 				name: $('[name="name"]', modal).val(),
-				email: $('[name="email"]', modal).val()
+				email: $('[name="email"]', modal).val(),
+				role: $('[name="role"]', modal).val()
 			};
 
 			if ($('[name="password"]', modal).val().length > 0) {
@@ -13184,7 +13293,7 @@ module.exports = function spread(callback) {
 					user.name = res.data.name;
 					user.email = res.data.email;
 
-					_this3.editUser = { id: 0, role: 0 };
+					_this3.editingUser = { id: 0, role: 0 };
 					modal.modal('hide');
 					$('form', modal).get(0).reset();
 				}
@@ -32874,7 +32983,7 @@ var Component = __webpack_require__(4)(
   /* cssModules */
   null
 )
-Component.options.__file = "d:\\xampp\\htdocs\\Admin-dashboard\\resources\\assets\\js\\components\\Media.vue"
+Component.options.__file = "D:\\xampp\\htdocs\\Admin-dashboard\\resources\\assets\\js\\components\\Media.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Media.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32908,7 +33017,7 @@ var Component = __webpack_require__(4)(
   /* cssModules */
   null
 )
-Component.options.__file = "d:\\xampp\\htdocs\\Admin-dashboard\\resources\\assets\\js\\components\\Roles.vue"
+Component.options.__file = "D:\\xampp\\htdocs\\Admin-dashboard\\resources\\assets\\js\\components\\Roles.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Roles.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -32942,7 +33051,7 @@ var Component = __webpack_require__(4)(
   /* cssModules */
   null
 )
-Component.options.__file = "d:\\xampp\\htdocs\\Admin-dashboard\\resources\\assets\\js\\components\\Users.vue"
+Component.options.__file = "D:\\xampp\\htdocs\\Admin-dashboard\\resources\\assets\\js\\components\\Users.vue"
 if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
 if (Component.options.functional) {console.error("[vue-loader] Users.vue: functional components are not supported with templates, they should use render functions.")}
 
@@ -33554,7 +33663,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     return _c('option', {
       domProps: {
         "value": role.id,
-        "selected": _vm.editUser.role == role.id
+        "selected": _vm.editingUser.role == role.id
       }
     }, [_vm._v("\n\t\t\t\t\t\t\t\t\t\t\t\t" + _vm._s(role.display_name || role.name) + "\n\t\t\t\t\t\t\t\t\t\t\t")])
   }))])])])]), _vm._v(" "), _vm._m(15)])])])]), _vm._v(" "), _c('div', {
@@ -33930,7 +34039,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       } : {})
     }, [_c('a', {
       attrs: {
-        "href": "#"
+        "href": "#",
+        "data-toggle": "modal",
+        "data-target": "#media-edit",
+        "data-id": file.id
+      },
+      on: {
+        "click": _vm.setMediaDataForEdit
       }
     }, [(file.type == 'image') ? _c('img', {
       attrs: {
@@ -34040,7 +34155,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)])])])])])])
+  })]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)])])])])]), _vm._v(" "), _vm._m(4)])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header modal-success"
@@ -34090,6 +34205,168 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "aria-hidden": "true"
     }
   })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "media-edit",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-big",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_c('div', {
+    staticClass: "modal-header modal-primary"
+  }, [_c('button', {
+    staticClass: "close",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal",
+      "aria-label": "Close"
+    }
+  }, [_c('span', {
+    attrs: {
+      "aria-hidden": "true"
+    }
+  }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
+    staticClass: "modal-title"
+  })]), _vm._v(" "), _c('form', {
+    attrs: {
+      "role": "form"
+    }
+  }, [_c('div', {
+    staticClass: "modal-body"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_c('div', {
+    staticClass: "col-xs-12"
+  }, [_c('div', {
+    staticClass: "alert alert-danger",
+    staticStyle: {
+      "display": "none"
+    }
+  }, [_c('ul')])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-12 col-sm-6"
+  }, [_c('div', {
+    staticClass: "media-thumb-wrapper"
+  }, [_c('img', {
+    staticClass: "img-responsive",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "data-type": "image"
+    }
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-file-audio-o",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "data-type": "audio"
+    }
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-file-archive-o",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "data-type": "archive"
+    }
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-file-text-o",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "data-type": "document"
+    }
+  }), _vm._v(" "), _c('i', {
+    staticClass: "fa fa-file-o",
+    staticStyle: {
+      "display": "none"
+    },
+    attrs: {
+      "data-type": "other"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-12 col-sm-6"
+  }, [_c('fieldset', [_c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "title",
+      "placeholder": "Title"
+    }
+  })])]), _vm._v(" "), _c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "input-group"
+  }, [_c('div', {
+    staticClass: "input-group-addon"
+  }, [_c('i', {
+    staticClass: "fa",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "alt",
+      "id": "alt",
+      "placeholder": "Alternative title"
+    }
+  })])])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-hover-danger btn-circle pull-left",
+    attrs: {
+      "type": "button"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-trash-o",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default btn-hover-success btn-circle",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-check",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })]), _vm._v(" "), _c('button', {
+    staticClass: "btn btn-default btn-hover-warning btn-circle",
+    attrs: {
+      "type": "button",
+      "data-dismiss": "modal"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-times",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])])])])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

@@ -72,14 +72,20 @@ button {
 }
 
 .input-group-addon {
+
   i {
     width: 1.5em;
   }
 }
 
 .modal {
+
 	&-content {
 		overflow: hidden;
+	}
+
+	&-big {
+		width: 850px;
 	}
 
 	&-primary {
@@ -113,29 +119,6 @@ button {
 	margin-top: 0;
 }
 
-.media-upload-area {
-	border: 1px dashed $media-upload-area-border-color;
-
-	&, &.dragover {
-		transition: ease-in-out .3s border-color, ease-in-out .3s background-color;
-	}
-
-	&.dragover {
-		border-color: $brand-success-dark;
-		background-color: rgba($brand-success, .25);
-	}
-
-	&.has-error {
-		border-color: $brand-danger-dark;
-		background-color: rgba($brand-danger, .25);
-	}
-
-	input[type="file"] {
-		opacity: 0;
-		height: 200px;
-	}
-}
-
 .progress-bar {
 	text-align: left;
 	@include sb-transition(background-color);
@@ -158,9 +141,39 @@ button {
 
 .media {
 
+	&-upload-area {
+		border: 1px dashed $media-upload-area-border-color;
+
+		&, &.dragover {
+			transition: ease-in-out .3s border-color, ease-in-out .3s background-color;
+		}
+
+		&.dragover {
+			border-color: $brand-success-dark;
+			background-color: rgba($brand-success, .25);
+		}
+
+		&.has-error {
+			border-color: $brand-danger-dark;
+			background-color: rgba($brand-danger, .25);
+		}
+
+		input[type="file"] {
+			opacity: 0;
+			height: 200px;
+		}
+	}
+
+	&-thumb-wrapper {
+		text-align: center;
+		
+		i {
+			font-size: 4em;
+		}
+	}
+
 	&-item {
 		text-align: center;
-		font-size: 4em;
 		line-height: 1;
 		margin-bottom: .5em;
 		padding: .25em;
@@ -168,6 +181,10 @@ button {
 
 		@media (min-width: $screen-sm-min) {
 			height: 100px;
+		}
+
+		i {
+			font-size: 4em;
 		}
 
 		&:hover {
@@ -180,6 +197,10 @@ button {
 			height: 100%;
 			width: 100%;
 			overflow: hidden;
+
+			&:focus {
+				outline: none;
+			}
 
 			img {
 				@include img-responsive();
