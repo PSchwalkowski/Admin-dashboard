@@ -176,7 +176,7 @@
 										</div>
 										<select class="form-control" name="role">
 											<!-- TODO: Add selected! -->
-											<option v-for="role in roles" v-bind:value="role.id" :selected="editUser.role == role.id">
+											<option v-for="role in roles" v-bind:value="role.id" :selected="editingUser.role == role.id">
 												{{role.display_name || role.name}}
 											</option>
 										</select>
@@ -231,7 +231,7 @@
     data() {
       return {
 				user: this.$parent.user,
-				editUser: {id: 0, role: 0},
+				editingUser: {id: 0, role: 0},
         users: this.$parent.users,
 				roles: this.$parent.roles
       }
@@ -339,7 +339,7 @@
 				  var userId = $(this.$parent.getTargetButtonFromEvent(event)).val();
 					let user = this.getUser(userId);
 
-					this.editUser = user;
+					this.editingUser = user;
 
 					let modal = $('#users-edit');
 					$('.user-name', modal).text(user.name)
@@ -362,7 +362,8 @@
 				let formData = {
 					id: $('[name="id"]', modal).val(),
 					name: $('[name="name"]', modal).val(),
-					email: $('[name="email"]', modal).val()
+					email: $('[name="email"]', modal).val(),
+					role: $('[name="role"]', modal).val()
 				}
 
 				if ($('[name="password"]', modal).val().length > 0) {
@@ -379,7 +380,7 @@
 						user.name = res.data.name;
 						user.email = res.data.email;
 
-						this.editUser = {id: 0, role: 0};
+						this.editingUser = {id: 0, role: 0};
 						modal.modal('hide');
 						$('form', modal).get(0).reset();
 					}

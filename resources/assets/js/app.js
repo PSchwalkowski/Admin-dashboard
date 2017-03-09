@@ -27,10 +27,10 @@ const app = new Vue({
 		 * @return {object} DOM Element
 		 */
     getTargetButtonFromEvent: (event) => {
-      var button = $(event.target).get(0);
+      var button = event.target;
 
       if (button.tagName === 'I')
-        button = $(button).parent().get(0);
+        button = button.parentNode;
 
       return button;
     }
