@@ -12289,6 +12289,10 @@ module.exports = function spread(callback) {
 //
 //
 //
+//
+//
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = {
 	data: function data() {
@@ -12469,6 +12473,11 @@ module.exports = function spread(callback) {
 			}
 		},
 
+		/**
+   * Prepare edit form
+  * @param {event} event DOM Event Object
+  * @return {void}
+  */
 		setMediaDataForEdit: function setMediaDataForEdit(event) {
 			event.preventDefault();
 			var modal = $('#media-edit');
@@ -12482,12 +12491,60 @@ module.exports = function spread(callback) {
 
 			$('.modal-title', modal).text(media.name);
 
+			$('[name="title"]', modal).val(media.title);
+			$('[name="alt"]', modal).val(media.alt);
+			$('[name="id"]', modal).val(media.id);
+
 			$('[data-type]', modal).hide();
 			$('[data-type="' + media.type + '"]', modal).show();
 
 			if (media.type == 'image') {
 				$('[data-type="' + media.type + '"]', modal).attr('src', media.url).attr('title', media.title || media.name).attr('alt', media.alt);
 			}
+		},
+
+		/**
+   * Edit file
+   * @param {event} event DOM Event Object
+   * @return {void}
+   */
+		editFile: function editFile(event) {
+			var _this3 = this;
+
+			event.preventDefault();
+
+			var modal = $('#media-edit');
+			var errorsList = $('.alert ul', modal);
+			var formData = {
+				id: $('[name="id"]', modal).val(),
+				title: $('[name="title"]', modal).val(),
+				alt: $('[name="alt"]', modal).val()
+			};
+
+			axios.put('/api/v1/media', formData).then(function (res) {
+				if (res.status == 200) {
+					errorsList.parent().slideUp();
+					$('.form-group', modal).removeClass('has-error');
+
+					var file = _this3.getFile(res.data.id);
+
+					file.title = res.data.title;
+					file.alt = res.data.alt;
+
+					modal.modal('hide');
+					$('form', modal).get(0).reset();
+				}
+			}).catch(function (error) {
+				$('.form-group', modal).removeClass('has-error');
+				errorsList.empty();
+
+				$.each(error.response.data, function (field, message) {
+					errorsList.append($('<li/>').text(message[0]));
+					$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
+				});
+
+				errorsList.parent().slideDown();
+			});
 		}
 	}
 };
@@ -34155,7 +34212,28 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)])])])])]), _vm._v(" "), _vm._m(4)])
+  })]), _vm._v(" "), _vm._m(2), _vm._v(" "), _vm._m(3)])])])])]), _vm._v(" "), _c('div', {
+    staticClass: "modal fade",
+    attrs: {
+      "id": "media-edit",
+      "tabindex": "-1",
+      "role": "dialog"
+    }
+  }, [_c('div', {
+    staticClass: "modal-dialog modal-big",
+    attrs: {
+      "role": "document"
+    }
+  }, [_c('div', {
+    staticClass: "modal-content"
+  }, [_vm._m(4), _vm._v(" "), _c('form', {
+    attrs: {
+      "role": "form"
+    },
+    on: {
+      "submit": _vm.editFile
+    }
+  }, [_vm._m(5), _vm._v(" "), _vm._m(6)])])])])])
 },staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
     staticClass: "modal-header modal-success"
@@ -34207,20 +34285,6 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])
 },function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
   return _c('div', {
-    staticClass: "modal fade",
-    attrs: {
-      "id": "media-edit",
-      "tabindex": "-1",
-      "role": "dialog"
-    }
-  }, [_c('div', {
-    staticClass: "modal-dialog modal-big",
-    attrs: {
-      "role": "document"
-    }
-  }, [_c('div', {
-    staticClass: "modal-content"
-  }, [_c('div', {
     staticClass: "modal-header modal-primary"
   }, [_c('button', {
     staticClass: "close",
@@ -34235,11 +34299,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     }
   }, [_vm._v("×")])]), _vm._v(" "), _c('h4', {
     staticClass: "modal-title"
-  })]), _vm._v(" "), _c('form', {
-    attrs: {
-      "role": "form"
-    }
-  }, [_c('div', {
+  })])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "modal-body"
   }, [_c('div', {
     staticClass: "row"
@@ -34297,6 +34359,13 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   })])]), _vm._v(" "), _c('div', {
     staticClass: "col-xs-12 col-sm-6"
   }, [_c('fieldset', [_c('div', {
+    staticClass: "form-hidden"
+  }, [_c('input', {
+    attrs: {
+      "type": "hidden",
+      "name": "id"
+    }
+  })]), _vm._v(" "), _c('div', {
     staticClass: "form-group has-feedback"
   }, [_c('div', {
     staticClass: "input-group"
@@ -34333,7 +34402,9 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
       "id": "alt",
       "placeholder": "Alternative title"
     }
-  })])])])])])]), _vm._v(" "), _c('div', {
+  })])])])])])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
     staticClass: "modal-footer"
   }, [_c('button', {
     staticClass: "btn btn-default btn-hover-danger btn-circle pull-left",
@@ -34366,7 +34437,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
     attrs: {
       "aria-hidden": "true"
     }
-  })])])])])])])
+  })])])
 }]}
 module.exports.render._withStripped = true
 if (false) {

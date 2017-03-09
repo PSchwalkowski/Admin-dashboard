@@ -87,7 +87,7 @@
               aria-label="Close"><span aria-hidden="true">&times;</span></button>
             <h4 class="modal-title"></h4>
           </div>
-          <form role="form">
+          <form role="form" v-on:submit="editFile">
 						<div class="modal-body">
 
 							<div class="row">
@@ -116,6 +116,10 @@
 								</div>
 								<div class="col-xs-12 col-sm-6">
 									<fieldset>
+										<div class="form-hidden">
+											<input type="hidden" name="id">
+										</div>
+
 										<div class="form-group has-feedback">
 											<div class="input-group">
 												<div class="input-group-addon">
@@ -342,6 +346,11 @@
 				}
 			},
 
+			/**
+			 * Prepare edit form
+			* @param {event} event DOM Event Object
+			* @return {void}
+			*/
 			setMediaDataForEdit: function(event) {
 				event.preventDefault();
 				const modal = $('#media-edit');
@@ -355,6 +364,10 @@
 
 				$('.modal-title', modal).text(media.name);
 
+				$('[name="title"]', modal).val(media.title);
+				$('[name="alt"]', modal).val(media.alt);
+				$('[name="id"]', modal).val(media.id);
+
 				$('[data-type]', modal).hide();
 				$('[data-type="' + media.type + '"]', modal).show();
 
@@ -364,6 +377,49 @@
 						.attr('title', media.title || media.name)
 						.attr('alt', media.alt);
 				}
+			},
+
+			/**
+			 * Edit file
+			 * @param {event} event DOM Event Object
+			 * @return {void}
+			 */
+			editFile: function(event) {
+				event.preventDefault();
+
+				const modal = $('#media-edit');
+				const errorsList = $('.alert ul', modal);
+				const formData = {
+					id: $('[name="id"]', modal).val(),
+					title: $('[name="title"]', modal).val(),
+					alt: $('[name="alt"]', modal).val(),
+				}
+
+				axios.put('/api/v1/media', formData).then(res => {
+					if (res.status == 200) {
+						errorsList.parent().slideUp();
+						$('.form-group', modal).removeClass('has-error');
+
+						let file = this.getFile(res.data.id);
+
+						file.title = res.data.title;
+						file.alt = res.data.alt;
+
+						modal.modal('hide');
+						$('form', modal).get(0).reset();
+					}
+				})
+				.catch(error => {
+					$('.form-group', modal).removeClass('has-error');
+					errorsList.empty();
+
+					$.each(error.response.data, function(field, message) {
+						errorsList.append($('<li/>').text(message[0]));
+						$('[name="' + field + '"]').closest('.form-group').addClass('has-error');
+					});
+
+					errorsList.parent().slideDown();
+				});
 			}
 		}
 	}

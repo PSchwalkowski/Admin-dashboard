@@ -17,8 +17,8 @@ class CreateMediaTable extends Migration
 						$table->increments('id');
 						$table->string('name');
 						$table->string('path');
-						$table->string('title')->default('');
-						$table->string('alt')->default('');
+						$table->string('title')->nullable();
+						$table->string('alt')->nullable();
 						$table->string('mime_type');
 						$table->timestamps();
 				});

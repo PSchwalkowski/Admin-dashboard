@@ -30,7 +30,7 @@ Route::group([
   Route::group(['prefix' => 'media'], function() {
     Route::get('/', 'MediaController@getAll');
     Route::post('/', 'MediaController@create');
-    // Route::put('/', 'MediaController@edit');
+    Route::put('/', 'MediaController@edit');
     // Route::delete('/', 'MediaController@delete');
   });
 });

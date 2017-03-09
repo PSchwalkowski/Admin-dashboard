@@ -31,7 +31,7 @@ class RoleController extends Controller {
     ]);
 
 		if ($validator->fails()) {
-      return response()->json($validator->errors(), 422);
+      return response()->json($validator->errors(), 409);
     }
 
 		$Role = Role::create([
@@ -57,7 +57,7 @@ class RoleController extends Controller {
 		]);
 
 		if ($validator->fails()) {
-      return response()->json($validator->errors(), 422);
+      return response()->json($validator->errors(), 409);
     }
 
 		$Role = Role::find($request->get('id'))->fill([
@@ -84,7 +84,7 @@ class RoleController extends Controller {
     ]);
 
     if ($validator->fails()) {
-      return response()->json($validator->errors()->first('id'), 422);
+      return response()->json($validator->errors()->first('id'), 409);
     }
 
     Role::destroy($request->get('id'));
