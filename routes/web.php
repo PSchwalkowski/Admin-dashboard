@@ -17,4 +17,5 @@ Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
 	Route::get('/users', 'UserController@index')->name('users.index');
 	Route::get('/roles', 'RoleController@index')->name('roles.index');
 	Route::get('/media', 'MediaController@index')->name('media.index');
+	Route::get('/settings', 'SettingsController@index')->name('settings.index');
 });

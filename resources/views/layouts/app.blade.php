@@ -161,6 +161,9 @@
                 <li><a href="{{ route('media.index') }}">
                   <i class="fa fa-folder-open-o fa-fw"></i> Media library
                 </a></li>
+                <li><a href="{{ route('settings.index') }}">
+                  <i class="fa fa-cogs fa-fw"></i> Settings
+                </a></li>
               </ul>
             </div>
           </div>
