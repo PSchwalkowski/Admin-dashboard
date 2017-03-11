@@ -68,7 +68,7 @@
 								<div class="form-group has-feedback">
 									<div class="input-group">
 										<div class="input-group-addon">
-											<i class="fa fa-envelope-o" aria-hidden="true"></i>
+											<i class="fa fa-at" aria-hidden="true"></i>
 										</div>
 										<input type="email" name="email" class="form-control"
 											placeholder="E-Mail">
@@ -149,7 +149,7 @@
 								<div class="form-group has-feedback">
 									<div class="input-group">
 										<div class="input-group-addon">
-											<i class="fa fa-envelope-o" aria-hidden="true"></i>
+											<i class="fa fa-at" aria-hidden="true"></i>
 										</div>
 										<input type="email" name="email" class="form-control"
 											placeholder="E-Mail">

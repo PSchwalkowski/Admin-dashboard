@@ -2,13 +2,15 @@
 require('./bootstrap');
 require('../../../node_modules/metismenu/dist/metisMenu.min.js');
 
+// Vue.component('auth-login', require('./components/Auth/Login.vue'));
+
 Vue.component('users', require('./components/Users.vue'));
 Vue.component('roles', require('./components/Roles.vue'));
 Vue.component('media', require('./components/Media.vue'));
 
 // Create Vue instance
 const app = new Vue({
-  el: 'body > div',
+  el: '.app',
   data: {
 		user: {},
     users: [],

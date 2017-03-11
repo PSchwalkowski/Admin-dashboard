@@ -13,14 +13,25 @@
           'role' => 'form'
         ]) }}
 
+					<div class="alert alert-danger {{ count($errors) ? '' : 'hidden' }}">
+						<ul>
+							@if ($errors->has('email'))
+								<li>{{ $errors->first('email') }}</li>
+							@endif
+							@if ($errors->has('password'))
+								<li>{{ $errors->first('password') }}</li>
+							@endif
+						</ul>
+					</div>
+
           <fieldset>
-            <div class="form-group">
+            <div class="form-group has-feedback {{ $errors->has('email') ? 'has-error' : '' }}">
               {{ Form::email('email', old('email'), [
                 'class' => 'form-control',
                 'placeholder' => 'E-mail'
               ]) }}
             </div>
-            <div class="form-group">
+            <div class="form-group has-feedback {{ $errors->has('password') ? 'has-error' : '' }}">
               {{ Form::password('password', [
                 'class' => 'form-control',
                 'placeholder' => 'Password'

@@ -11239,13 +11239,15 @@ module.exports = g;
 __webpack_require__(34);
 __webpack_require__(38);
 
+// Vue.component('auth-login', require('./components/Auth/Login.vue'));
+
 Vue.component('users', __webpack_require__(41));
 Vue.component('roles', __webpack_require__(40));
 Vue.component('media', __webpack_require__(39));
 
 // Create Vue instance
 var app = new Vue({
-  el: 'body > div',
+  el: '.app',
   data: {
     user: {},
     users: [],
@@ -33840,7 +33842,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "input-group-addon"
   }, [_c('i', {
-    staticClass: "fa fa-envelope-o",
+    staticClass: "fa fa-at",
     attrs: {
       "aria-hidden": "true"
     }
@@ -33980,7 +33982,7 @@ module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c
   }, [_c('div', {
     staticClass: "input-group-addon"
   }, [_c('i', {
-    staticClass: "fa fa-envelope-o",
+    staticClass: "fa fa-at",
     attrs: {
       "aria-hidden": "true"
     }

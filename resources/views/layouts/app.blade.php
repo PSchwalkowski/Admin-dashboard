@@ -25,7 +25,7 @@
     </script>
   </head>
   <body>
-    <div id="wrapper" class="app">
+    <div class="app">
 
       <nav class="navbar navbar-default navbar-static-top" role="navigation">
         <div class="navbar-header">
