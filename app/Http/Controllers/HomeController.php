@@ -21,7 +21,7 @@ class HomeController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function users() {
-    return view('users.index');
+    return view('users');
   }
 
   /**
@@ -30,7 +30,7 @@ class HomeController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function roles() {
-    return view('roles.index');
+    return view('roles');
   }
 
   /**
@@ -39,7 +39,7 @@ class HomeController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function media() {
-    return view('media.index');
+    return view('media');
   }
 
   /**
@@ -48,6 +48,6 @@ class HomeController extends Controller {
    * @return \Illuminate\Http\Response
    */
   public function settings() {
-    return view('settings.index');
+    return view('settings');
   }
 }
