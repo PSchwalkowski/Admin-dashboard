@@ -10,6 +10,7 @@ class DatabaseSeeder extends Seeder {
    * @return void
    */
   public function run() {
+    $this->call(ApiClientSeeder::class);
     $this->call(UsersSeeder::class);
     $this->call(RolesSeeder::class);
     $this->call(SettingsSeeder::class);

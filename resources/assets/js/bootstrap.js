@@ -31,7 +31,8 @@ window.axios = require('axios');
 
 window.axios.defaults.headers.common = {
     'X-CSRF-TOKEN': window.Laravel.csrfToken,
-    'X-Requested-With': 'XMLHttpRequest'
+    'X-Requested-With': 'XMLHttpRequest',
+		'api-token': 'Hsih7OTtNlVWMh2RuV7MDOFJawzotKchBXljyhWIRE69LUacKMK5PK8Qg4Va'
 };
 
 /**
