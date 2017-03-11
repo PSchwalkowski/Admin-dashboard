@@ -37,6 +37,8 @@ $(function() {
     return this.href == url;
   }).addClass('active').parent();
 
+	element.parents('li').addClass('active');
+
   while (true) {
     if (element.is('li')) {
       element = element.parent().addClass('in').parent();
