@@ -13,9 +13,9 @@ Route::get('/', function() {
 });
 
 Route::group(['prefix' => 'admin', 'middleware' => 'auth'], function() {
-	Route::get('/', 'HomeController@index')->name('home');
-	Route::get('/users', 'UserController@index')->name('users.index');
-	Route::get('/roles', 'RoleController@index')->name('roles.index');
-	Route::get('/media', 'MediaController@index')->name('media.index');
-	Route::get('/settings', 'SettingsController@index')->name('settings.index');
+	Route::get('/', 'HomeController@home')->name('home');
+	Route::get('/users', 'HomeController@users')->name('users.index');
+	Route::get('/roles', 'HomeController@roles')->name('roles.index');
+	Route::get('/media', 'HomeController@media')->name('media.index');
+	Route::get('/settings', 'HomeController@settings')->name('settings.index');
 });

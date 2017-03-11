@@ -11,7 +11,43 @@ class HomeController extends Controller {
    *
    * @return \Illuminate\Http\Response
    */
-  public function index() {
+  public function home() {
     return view('home');
+  }
+
+  /**
+   * Show users view
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function users() {
+    return view('users.index');
+  }
+
+  /**
+   * Show roles view
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function roles() {
+    return view('roles.index');
+  }
+
+  /**
+   * Show media view
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function media() {
+    return view('media.index');
+  }
+
+  /**
+   * Show settings view
+   *
+   * @return \Illuminate\Http\Response
+   */
+  public function settings() {
+    return view('settings.index');
   }
 }
