@@ -11244,6 +11244,7 @@ __webpack_require__(38);
 Vue.component('users', __webpack_require__(41));
 Vue.component('roles', __webpack_require__(40));
 Vue.component('media', __webpack_require__(39));
+Vue.component('settings', __webpack_require__(65));
 
 // Create Vue instance
 var app = new Vue({
@@ -11252,7 +11253,8 @@ var app = new Vue({
     user: {},
     users: [],
     roles: [],
-    files: []
+    files: [],
+    settings: []
   },
   created: function created() {
     this.user = currentUser;
@@ -43092,6 +43094,226 @@ module.exports = function(module) {
 __webpack_require__(11);
 module.exports = __webpack_require__(12);
 
+
+/***/ }),
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */,
+/* 63 */,
+/* 64 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* WEBPACK VAR INJECTION */(function($) {Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+
+/* harmony default export */ __webpack_exports__["default"] = {
+	data: function data() {
+		return {
+			settings: this.$parent.settings
+		};
+	},
+
+	created: function created() {
+		var _this = this;
+
+		this.getSettings().then(function (settings) {
+			_this.settings = settings;
+		});
+	},
+	methods: {
+
+		/**
+   * Get settings from API
+   * @return {Promise}
+   */
+		getSettings: function getSettings() {
+			return axios.get('/api/v1/settings').then(function (res) {
+				return res.data;
+			});
+		},
+
+		/**
+   * Get settings by settings name
+   * @param  {string} name
+   * @return {any}
+   */
+		getSettingsByName: function getSettingsByName(name) {
+			var result = this.settings.filter(function (settings) {
+				if (settings.name == name) {
+					return settings;
+				};
+			});
+
+			if (!result.length) return;
+
+			return result[0].value;
+		},
+
+		/**
+   * Save all settings
+   * @param  {event} event DOM Event Object
+   * @return {void}
+   */
+		saveSettings: function saveSettings(event) {
+			var _this2 = this;
+
+			event.preventDefault();
+
+			var form = $('form[name="settings"]');
+			var formData = {
+				title: $('[name="title"]').val()
+			};
+
+			axios.put('/api/v1/settings', formData).then(function (res) {
+				if (res.status == 200) {
+					_this2.settings = res.data;
+				}
+			}).catch(function (error) {
+				console.log(error);
+			});
+		}
+
+	}
+};
+/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(1)))
+
+/***/ }),
+/* 65 */
+/***/ (function(module, exports, __webpack_require__) {
+
+var Component = __webpack_require__(4)(
+  /* script */
+  __webpack_require__(64),
+  /* template */
+  __webpack_require__(66),
+  /* scopeId */
+  null,
+  /* cssModules */
+  null
+)
+Component.options.__file = "D:\\xampp\\htdocs\\Admin-dashboard\\resources\\assets\\js\\components\\Settings.vue"
+if (Component.esModule && Object.keys(Component.esModule).some(function (key) {return key !== "default" && key !== "__esModule"})) {console.error("named exports are not supported in *.vue files.")}
+if (Component.options.functional) {console.error("[vue-loader] Settings.vue: functional components are not supported with templates, they should use render functions.")}
+
+/* hot reload */
+if (false) {(function () {
+  var hotAPI = require("vue-hot-reload-api")
+  hotAPI.install(require("vue"), false)
+  if (!hotAPI.compatible) return
+  module.hot.accept()
+  if (!module.hot.data) {
+    hotAPI.createRecord("data-v-1de008c1", Component.options)
+  } else {
+    hotAPI.reload("data-v-1de008c1", Component.options)
+  }
+})()}
+
+module.exports = Component.exports
+
+
+/***/ }),
+/* 66 */
+/***/ (function(module, exports, __webpack_require__) {
+
+module.exports={render:function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel panel-default"
+  }, [_c('div', {
+    staticClass: "panel-heading"
+  }), _vm._v(" "), _c('form', {
+    attrs: {
+      "role": "form",
+      "name": "settings"
+    },
+    on: {
+      "submit": _vm.saveSettings
+    }
+  }, [_c('div', {
+    staticClass: "panel-body"
+  }, [_c('fieldset', [_c('div', {
+    staticClass: "form-group has-feedback"
+  }, [_c('div', {
+    staticClass: "row"
+  }, [_vm._m(0), _vm._v(" "), _c('div', {
+    staticClass: "col-xs-12 col-sm-8"
+  }, [_c('input', {
+    staticClass: "form-control",
+    attrs: {
+      "type": "text",
+      "name": "title"
+    },
+    domProps: {
+      "value": _vm.getSettingsByName('title')
+    }
+  })])])])])]), _vm._v(" "), _vm._m(1)])])
+},staticRenderFns: [function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "col-xs-12 col-sm-4"
+  }, [_c('label', {
+    staticClass: "control-form"
+  }, [_vm._v("Page title")])])
+},function (){var _vm=this;var _h=_vm.$createElement;var _c=_vm._self._c||_h;
+  return _c('div', {
+    staticClass: "panel-footer"
+  }, [_c('button', {
+    staticClass: "btn btn-default btn-hover-success btn-circle",
+    attrs: {
+      "type": "submit"
+    }
+  }, [_c('i', {
+    staticClass: "fa fa-check",
+    attrs: {
+      "aria-hidden": "true"
+    }
+  })])])
+}]}
+module.exports.render._withStripped = true
+if (false) {
+  module.hot.accept()
+  if (module.hot.data) {
+     require("vue-hot-reload-api").rerender("data-v-1de008c1", module.exports)
+  }
+}
 
 /***/ })
 /******/ ]);

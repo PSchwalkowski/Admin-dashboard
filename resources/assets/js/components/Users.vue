@@ -103,9 +103,9 @@
 							</fieldset>
 	          </div>
 	          <div class="modal-footer">
-						<button type="reset"
-							class="btn btn-default btn-hover-info btn-circle pull-left">
-							<i class="fa fa-refresh" aria-hidden="true"></i></button>
+							<button type="reset"
+								class="btn btn-default btn-hover-info btn-circle pull-left">
+								<i class="fa fa-refresh" aria-hidden="true"></i></button>
 	            <button type="submit" name="createUser"
 	              class="btn btn-default btn-hover-success btn-circle">
 	              <i class="fa fa-check" aria-hidden="true"></i></button>

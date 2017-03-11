@@ -33,4 +33,9 @@ Route::group([
     Route::put('/', 'MediaController@edit');
     Route::delete('/', 'MediaController@delete');
   });
+
+  Route::group(['prefix' => 'settings'], function() {
+    Route::get('/', 'SettingsController@getAll');
+    Route::put('/', 'SettingsController@edit');
+  });
 });
