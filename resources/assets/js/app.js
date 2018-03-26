@@ -1,22 +1,46 @@
 
-/**
- * First we will load all of this project's JavaScript dependencies which
- * includes Vue and other libraries. It is a great starting point when
- * building robust, powerful web applications using Vue and Laravel.
- */
-
 require('./bootstrap');
+require('../../../node_modules/metismenu/dist/metisMenu.min.js');
 
-window.Vue = require('vue');
+// Vue.component('auth-login', require('./components/Auth/Login.vue'));
 
-/**
- * Next, we will create a fresh Vue application instance and attach it to
- * the page. Then, you may begin adding components to this application
- * or customize the JavaScript scaffolding to fit your unique needs.
- */
+Vue.component('users', require('./components/Users.vue'));
+Vue.component('roles', require('./components/Roles.vue'));
+Vue.component('media', require('./components/Media.vue'));
+Vue.component('settings', require('./components/Settings.vue'));
 
-Vue.component('example', require('./components/Example.vue'));
-
+// Create Vue instance
 const app = new Vue({
-    el: '#app'
+  el: '.app',
+  data: {
+		user: {},
+    users: [],
+    roles: [],
+		files: [],
+		settings: []
+  },
+	created: function() {
+		this.user = currentUser;
+	},
+  methods: {
+
+		/**
+		 * Get button element from event target
+		 * Mostly used with onclick
+		 * @param  {event} event DOM Event Object
+		 * @return {object} DOM Element
+		 */
+    getTargetButtonFromEvent: (event) => {
+      var button = event.target;
+
+      if (button.tagName === 'I')
+        button = button.parentNode;
+
+      return button;
+    }
+  }
 });
+
+require('./scripts');
+
+// TODO: Notifications!

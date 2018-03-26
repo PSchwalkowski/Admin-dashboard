@@ -1,9 +1,216 @@
 
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url(https://fonts.googleapis.com/css?family=Raleway:300,400,600);
 
 // Variables
 @import "variables";
+@import "mixins";
 
-// Bootstrap
-@import "~bootstrap-sass/assets/stylesheets/bootstrap";
+// Vendors
+@import "node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
+@import "node_modules/font-awesome/scss/font-awesome";
+
+// SB-Admin 2 styles
+@import "sb-admin-2";
+
+.navbar {
+	&-static-top {
+	  margin-bottom: 0;
+	}
+
+	&-top-links {
+		.badge {
+			font-size: 8px;
+			padding: .5em .75em;
+			transform: translate(1em, -1em);
+		}
+	}
+}
+
+.nav li a {
+  &, &:hover {
+    transition: ease-in-out background-color .3s, ease-in-out border-color .3s;
+  }
+}
+
+.btn,
+button {
+  &:active,
+  &:focus {
+    outline: none !important;
+  }
+}
+
+.btn {
+  &-hover {
+    &-primary:hover {
+      color: white;
+      background-color: $brand-primary;
+      border-color: $brand-primary-dark;
+    }
+    &-danger:hover {
+      color: white;
+      background-color: $brand-danger;
+      border-color: $brand-danger-dark;
+    }
+    &-success:hover {
+      color: white;
+      background-color: $brand-success;
+      border-color: $brand-success-dark;
+    }
+    &-info:hover {
+      color: white;
+      background-color: $brand-info;
+      border-color: $brand-info-dark;
+    }
+    &-warning:hover {
+      color: white;
+      background-color: $brand-warning;
+      border-color: $brand-warning-dark;
+    }
+  }
+}
+
+.input-group-addon {
+
+  i {
+    width: 1.5em;
+  }
+}
+
+.modal {
+
+	&-content {
+		overflow: hidden;
+	}
+
+	&-big {
+		width: 850px;
+	}
+
+	&-primary {
+		color: white;
+		background-color: rgba($brand-primary, .75);
+		border-color: $brand-primary-dark;
+	}
+	&-danger {
+		color: white;
+		background-color: rgba($brand-danger, .75);
+		border-color: $brand-danger-dark;
+	}
+	&-success {
+		color: white;
+		background-color: rgba($brand-success, .75);
+		border-color: $brand-success-dark;
+	}
+	&-info {
+		color: white;
+		background-color: rgba($brand-info, .75);
+		border-color: $brand-info-dark;
+	}
+	&-warning {
+		color: white;
+		background-color: rgba($brand-warning, .75);
+		border-color: $brand-warning-dark;
+	}
+}
+
+.page-header {
+	margin-top: 0;
+}
+
+.progress-bar {
+	text-align: left;
+	@include sb-transition(background-color);
+
+	&.active span,
+	span {
+		@include sb-transition(color);
+	}
+
+	&.active span {
+		color: $text-color;
+	}
+
+	span {
+		position: absolute;
+		display: inline-block;
+		padding: 0 1em;
+	}
+}
+
+.media {
+
+	&-upload-area {
+		border: 1px dashed $media-upload-area-border-color;
+
+		&, &.dragover {
+			transition: ease-in-out .3s border-color, ease-in-out .3s background-color;
+		}
+
+		&.dragover {
+			border-color: $brand-success-dark;
+			background-color: rgba($brand-success, .25);
+		}
+
+		&.has-error {
+			border-color: $brand-danger-dark;
+			background-color: rgba($brand-danger, .25);
+		}
+
+		input[type="file"] {
+			opacity: 0;
+			height: 200px;
+		}
+	}
+
+	&-thumb-wrapper {
+		text-align: center;
+		
+		i {
+			font-size: 4em;
+		}
+	}
+
+	&-item {
+		text-align: center;
+		line-height: 1;
+		margin-bottom: .5em;
+		padding: .25em;
+		border: 1px solid transparent;
+
+		@media (min-width: $screen-sm-min) {
+			height: 100px;
+		}
+
+		i {
+			font-size: 4em;
+		}
+
+		&:hover {
+			border-color: $media-item-border-color;
+		}
+
+		a {
+			display: inline-block;
+			position: relative;
+			height: 100%;
+			width: 100%;
+			overflow: hidden;
+
+			&:focus {
+				outline: none;
+			}
+
+			img {
+				@include img-responsive();
+
+				@media (min-width: $screen-sm-min) {
+					height: 100%;
+					width: auto;
+					max-width: none;
+				}
+			}
+		}
+	}
+}

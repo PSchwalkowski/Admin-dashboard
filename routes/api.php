@@ -6,13 +6,36 @@ use Illuminate\Http\Request;
 |--------------------------------------------------------------------------
 | API Routes
 |--------------------------------------------------------------------------
-|
-| Here is where you can register API routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| is assigned the "api" middleware group. Enjoy building your API!
-|
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
+Route::group([
+  'middleware' => 'api',
+  'namespace' => 'Api'
+], function() {
+
+  Route::group(['prefix' => 'users'], function() {
+    Route::get('/', 'UserController@getAll');
+    Route::post('/', 'UserController@create');
+    Route::put('/', 'UserController@edit');
+    Route::delete('/', 'UserController@delete');
+  });
+
+  Route::group(['prefix' => 'roles'], function() {
+    Route::get('/', 'RoleController@getAll');
+    Route::post('/', 'RoleController@create');
+    Route::put('/', 'RoleController@edit');
+    Route::delete('/', 'RoleController@delete');
+  });
+
+  Route::group(['prefix' => 'media'], function() {
+    Route::get('/', 'MediaController@getAll');
+    Route::post('/', 'MediaController@create');
+    Route::put('/', 'MediaController@edit');
+    Route::delete('/', 'MediaController@delete');
+  });
+
+  Route::group(['prefix' => 'settings'], function() {
+    Route::get('/', 'SettingsController@getAll');
+    Route::put('/', 'SettingsController@edit');
+  });
 });
