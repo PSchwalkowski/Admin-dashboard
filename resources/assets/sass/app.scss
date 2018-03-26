@@ -1,14 +1,12 @@
 
-// Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
 
-// Variables
-@import "variables";
+// UIkit
+@import '~uikit/src/scss/variables-theme',
+				'~uikit/src/scss/mixins-theme',
+				'~uikit/src/scss/uikit-theme';
 
-// Bootstrap
-@import '~bootstrap/scss/bootstrap';
+// Ionicons
+@import '~ionicons/dist/scss/ionicons';
 
-.navbar-laravel {
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.04);
-}
+// Notyf
+@import '~notyf/src/notyf';
