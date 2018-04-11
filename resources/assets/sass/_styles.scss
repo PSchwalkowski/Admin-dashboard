@@ -26,14 +26,14 @@ html, body, #app {
 	}
 }
 
-.tm-sidebar-left {
+.sidebar-left {
 	position: fixed;
 	z-index: 100;
-	top: 80px;
+	top: $navbar-nav-item-height;
 	bottom: 0;
 	box-sizing: border-box;
 	width: $sidebar-width;
-	padding: 40px 40px 60px 40px;
+	padding: 40px;
 	border-right: 1px $global-border solid;
 	overflow-y: auto;
 	overflow-x: hidden;
@@ -44,28 +44,28 @@ html, body, #app {
 	}
 }
 
-//.tm-sidebar-left::-webkit-scrollbar-track {
+//.sidebar-left::-webkit-scrollbar-track {
 //	-webkit-box-shadow: inset 0 0 6px $color-white;
 //	background-color: $color-dark-gray;
 //}
 //
-//.tm-sidebar-left::-webkit-scrollbar {
+//.sidebar-left::-webkit-scrollbar {
 //	width: 6px;
 //	background-color: $color-dark-gray;
 //}
 //
-//.tm-sidebar-left::-webkit-scrollbar-thumb {
+//.sidebar-left::-webkit-scrollbar-thumb {
 // -webkit-box-shadow: inset 0 0 6px $color-white;
 // background-color: $color-light-gray;
 //}
 
-.tm-sidebar-left .user {
+.sidebar-left .user-profile-details {
 	text-align: center;
 }
 
 .main-content-container {
 	margin-left: $sidebar-width;
-	min-height: calc(100% - 80px);
+	min-height: calc(100% - #{$navbar-nav-item-height});
 	background-color: $color-light-gray-2;
 	border-bottom: 1px $global-border solid;
 }

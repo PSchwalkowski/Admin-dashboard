@@ -20158,7 +20158,7 @@ body,
   padding-top: 2px;
 }
 
-.tm-sidebar-left {
+.sidebar-left {
   position: fixed;
   z-index: 100;
   top: 80px;
@@ -20166,7 +20166,7 @@ body,
   -webkit-box-sizing: border-box;
           box-sizing: border-box;
   width: 240px;
-  padding: 40px 40px 60px 40px;
+  padding: 40px;
   border-right: 1px #e5e5e5 solid;
   overflow-y: auto;
   overflow-x: hidden;
@@ -20176,12 +20176,12 @@ body,
   transition: transform ease-in-out .2s, -webkit-transform ease-in-out .2s;
 }
 
-.tm-sidebar-left.sidebar-hidden {
+.sidebar-left.sidebar-hidden {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
 }
 
-.tm-sidebar-left .user {
+.sidebar-left .user-profile-details {
   text-align: center;
 }
 

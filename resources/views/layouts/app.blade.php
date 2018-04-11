@@ -25,6 +25,7 @@
 					<a class="uk-navbar-toggle" uk-toggle="target: #sidebar; cls: sidebar-hidden" uk-navbar-toggle-icon></a>
 					<a href="#" class="uk-navbar-item uk-logo">{{ config('app.name', 'Dashboard') }}</a>
 				</div>
+				@if(Auth::check())
 				<div class="uk-navbar-right uk-light">
 					<ul class="uk-navbar-nav">
 						<li class="uk-active">
@@ -40,12 +41,16 @@
 						</li>
 					</ul>
 				</div>
+				@endif
 			</nav>
 		</div>
 	</div>
-	<div id="sidebar" class="tm-sidebar-left uk-background-default">
+	@guest
+		@include('auth.login')
+	@else
+	<div id="sidebar" class="sidebar-left uk-background-default">
 		<div class="uk-align-center">
-			<div class="user">
+			<div class="user-profile-details">
 				<img width="100" class="uk-border-circle" src="http://via.placeholder.com/450x450" />
 				<div class="uk-margin-top"></div>
 				<div class="uk-text-truncate"><strong>Lorem ipsum</strong></div>
@@ -77,6 +82,7 @@
 			</div>
 		</div>
 	</div>
+	@endguest
 
 	{{--
 	<nav class="navbar navbar-expand-md navbar-light navbar-laravel">
