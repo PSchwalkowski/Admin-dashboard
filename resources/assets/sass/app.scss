@@ -1,5 +1,4 @@
 
-
 // UIkit
 @import '~uikit/src/scss/variables-theme',
 				'~uikit/src/scss/mixins-theme',
@@ -10,3 +9,7 @@
 
 // Notyf
 @import '~notyf/src/notyf';
+
+// Custom styles
+@import 'variables',
+				'styles';
