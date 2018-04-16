@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
+use App\User;
 
 class UsersTableSeeder extends Seeder {
 
@@ -11,15 +12,16 @@ class UsersTableSeeder extends Seeder {
 	 */
 	public function run() {
 		if (!empty(env('SEEDER_USER_EMAIL'))) {
-			DB::table('users')->insert([
-				'name' => 'admin',
+			$adminUser = User::create([
+				'name' => 'Admin',
 				'email' => env('SEEDER_USER_EMAIL'),
 				'password' => bcrypt('password'),
-				'created_at' => \Carbon\Carbon::now(),
-				'updated_at' => \Carbon\Carbon::now(),
 			]);
+			$adminUser->assignRole('admin');
 		}
 
-		factory(App\User::class, 24)->create();
+		factory(App\User::class, 24)->create()->each(function($user) {
+			$user->assignRole('user');
+		});
 	}
 }
