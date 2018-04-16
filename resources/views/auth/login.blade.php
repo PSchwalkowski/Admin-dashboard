@@ -17,12 +17,12 @@
 											<input name="email" class="uk-input{{ $errors->has('email') ? ' uk-form-danger' : '' }}"
 														 type="email" placeholder="{{ __('E-Mail Address') }}"
 														 value="{{ old('email') }}" required autofocus>
-											@if ($errors->has('email'))
-												<span class="uk-text-meta">
+										</div>
+										@if ($errors->has('email'))
+											<span class="uk-text-meta">
 													<strong>{{ $errors->first('email') }}</strong>
                         </span>
-											@endif
-										</div>
+										@endif
 									</div>
 
 									<div class="uk-margin">
@@ -30,12 +30,12 @@
 											<span class="uk-form-icon ion-ios-lock"></span>
 											<input name="password" class="uk-input{{ $errors->has('password') ? ' uk-form-danger' : '' }}"
 														 type="password" placeholder="{{ __('Password') }}" required>
-											@if ($errors->has('password'))
-												<span class="uk-text-meta">
+										</div>
+										@if ($errors->has('password'))
+											<span class="uk-text-meta">
 													<strong>{{ $errors->first('password') }}</strong>
                         </span>
-											@endif
-										</div>
+										@endif
 									</div>
 
 									<div class="uk-margin">
