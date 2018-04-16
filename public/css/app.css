@@ -20176,7 +20176,7 @@ body,
   transition: transform ease-in-out .2s, -webkit-transform ease-in-out .2s;
 }
 
-.sidebar-left.sidebar-hidden {
+.sidebar-hidden .sidebar-left {
   -webkit-transform: translateX(-100%);
           transform: translateX(-100%);
 }
@@ -20190,5 +20190,11 @@ body,
   min-height: calc(100% - 80px);
   background-color: #f0f0f0;
   border-bottom: 1px #e5e5e5 solid;
+  -webkit-transition: margin-left ease-in-out .2s;
+  transition: margin-left ease-in-out .2s;
+}
+
+.sidebar-hidden .main-content-container {
+  margin-left: 0;
 }
 

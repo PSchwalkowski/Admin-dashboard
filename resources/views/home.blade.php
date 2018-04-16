@@ -1,23 +1,27 @@
 @extends('layouts.app')
 
+@section('page-header')
+	<h1><span class="ion-ios-ionic"></span> Home</h1>
+@endsection
+
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-8">
-            <div class="card">
-                <div class="card-header">Dashboard</div>
+	<div class="container">
+		<div class="row justify-content-center">
+			<div class="col-md-8">
+				<div class="card">
+					<div class="card-header">Dashboard</div>
 
-                <div class="card-body">
-                    @if (session('status'))
-                        <div class="alert alert-success">
-                            {{ session('status') }}
-                        </div>
-                    @endif
+					<div class="card-body">
+						@if (session('status'))
+							<div class="alert alert-success">
+								{{ session('status') }}
+							</div>
+						@endif
 
-                    You are logged in!
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
+						You are logged in!
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
 @endsection

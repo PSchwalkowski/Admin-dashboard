@@ -21,11 +21,11 @@
 	<div class="uk-navbar-container tm-navbar-container uk-active uk-navbar-blue">
 		<div class="uk-container uk-container-expand">
 			<nav uk-navbar>
-				<div class="uk-navbar-left">
-					<a class="uk-navbar-toggle" uk-toggle="target: #sidebar; cls: sidebar-hidden" uk-navbar-toggle-icon></a>
-					<a href="#" class="uk-navbar-item uk-logo">{{ config('app.name', 'Dashboard') }}</a>
-				</div>
 				@if(Auth::check())
+					<div class="uk-navbar-left">
+						<a class="uk-navbar-toggle" uk-toggle="target: #app; cls: sidebar-hidden" uk-navbar-toggle-icon></a>
+						<a href="{{ route('home') }}" class="uk-navbar-item uk-logo">{{ config('app.name', 'Dashboard') }}</a>
+					</div>
 					<div class="uk-navbar-right uk-light">
 						<ul class="uk-navbar-nav">
 							<li class="uk-active">
@@ -37,7 +37,7 @@
 										<li class="uk-nav-header">Actions</li>
 										<li>
 											<a href="{{ route('logout') }}" onclick="event.preventDefault();
-                                                     document.getElementById('logout-form').submit();">
+																										 document.getElementById('logout-form').submit();">
 												{{ __('Logout') }}
 											</a>
 											<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
@@ -54,7 +54,7 @@
 		</div>
 	</div>
 	@guest
-		@include('auth.login')
+		@yield('content')
 	@else
 		<div id="sidebar" class="sidebar-left uk-background-default">
 			<div class="uk-align-center">
@@ -67,20 +67,16 @@
 			</div>
 			<ul class="uk-nav uk-nav-default">
 				<li class="uk-nav-header">
-					UI Elements
+					<span class="ion-ios-settings"></span> Configuration
 				</li>
-				<li><a href="#">Buttons</a></li>
-				<li><a href="#">Components</a></li>
-				<li><a href="#">Tables</a></li>
+				<li><a href="#">Users</a></li>
 			</ul>
 		</div>
 
 		<div class="main-content-container">
 			<div class="uk-section-small uk-section-default">
 				<div class="uk-container uk-container-large">
-					{{--@yield('page-header')--}}
-					<h1><span class="ion-ios-ionic"></span> @yield('page-title', 'Home')</h1>
-					@yield('page-description')
+					@yield('page-header')
 				</div>
 			</div>
 			<div class="uk-section-small">

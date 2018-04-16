@@ -1,3 +1,6 @@
+@extends('layouts.app')
+
+@section('content')
 <div class="content-background">
 	<div class="uk-section-large">
 		<div class="uk-container uk-container-large">
@@ -52,3 +55,4 @@
 		</div>
 	</div>
 </div>
+@endsection
