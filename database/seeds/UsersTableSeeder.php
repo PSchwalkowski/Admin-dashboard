@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\User;
+use App\Models\User;
 
 class UsersTableSeeder extends Seeder {
 
@@ -20,7 +20,7 @@ class UsersTableSeeder extends Seeder {
 			$adminUser->assignRole('admin');
 		}
 
-		factory(App\User::class, 24)->create()->each(function($user) {
+		factory(User::class, 24)->create()->each(function($user) {
 			$user->assignRole('user');
 		});
 	}
