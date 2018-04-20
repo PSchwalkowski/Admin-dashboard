@@ -17,4 +17,10 @@ Route::group(['namespace' => 'Auth'], function() {
 	Route::post('logout', 'LoginController@logout')->name('logout');
 });
 
-Route::get('/', 'HomeController@index')->name('home');
+Route::middleware(['web'])->group(function() {
+	Route::get('/', 'HomeController@index')->name('home');
+
+	Route::prefix('users')->group(function() {
+		Route::get('/', 'UsersController@list')->name('users.list');
+	});
+});

@@ -69,7 +69,7 @@
 				<li class="uk-nav-header">
 					<span class="ion-ios-settings"></span> Configuration
 				</li>
-				<li><a href="#">Users</a></li>
+				<li><a href="{{ route('users.list') }}">Users</a></li>
 			</ul>
 		</div>
 

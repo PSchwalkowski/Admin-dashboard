@@ -37,7 +37,7 @@ html, body, #app {
 	border-right: 1px $global-border solid;
 	overflow-y: auto;
 	overflow-x: hidden;
-	transition: transform ease-in-out .2s;
+	transition: transform ease-in-out $transition-duration;
 
 	.sidebar-hidden & {
 		transform: translateX(-100%);
@@ -68,9 +68,28 @@ html, body, #app {
 	min-height: calc(100% - #{$navbar-nav-item-height});
 	background-color: $color-light-gray-2;
 	border-bottom: 1px $global-border solid;
-	transition: margin-left ease-in-out .2s;
+	transition: margin-left ease-in-out $transition-duration;
 
 	.sidebar-hidden & {
 		margin-left: 0;
 	}
+}
+
+.uk-table {
+	.action-button {
+		opacity: 0;
+		transition: opacity ease-in-out $transition-duration;
+	}
+
+	tr:hover .action-button {
+		opacity: 1;
+	}
+}
+
+.uk-button [class^="ion-"] {
+	font-size: 1.2em;
+}
+
+.text-right {
+	text-align: right;
 }
